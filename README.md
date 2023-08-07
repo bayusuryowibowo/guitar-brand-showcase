@@ -22,10 +22,10 @@ Target:
 - [ ] Conditional Rendering di dalam React
 - [ ] Looping List of Data di dalam React
 - [ ] Lifecycle component menggunakan useEffect
-- [ ] Membuat server (json-server)
+- [x] Membuat server (json-server)
 - [ ] Membuat react app untuk client-user (Styling)
 - [ ] Membuat react app untuk client-admin (CRUD)
-- [ ] Menentukan Thema Aplikasi
+- [x] Menentukan Thema Aplikasi
 - [ ] Menentukan Design dan pemilihan CSS Framework
 
 **Report:**
