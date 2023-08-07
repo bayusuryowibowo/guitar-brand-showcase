@@ -14,26 +14,27 @@ Struktur Folder:
 
 Target:
 
-- [ ] Lecture - React Intro
-- [ ] React: Class Component vs Function Component
-- [ ] Mempelajari State menggunakan useState
+- [x] Lecture - React Intro
+- [x] React: Class Component vs Function Component
+- [x] Mempelajari State menggunakan useState
 - [ ] Mengirim Props baik berupa sebuah state atau function
 - [ ] Event Handling (onClick, onChange, onSubmit)
 - [ ] Conditional Rendering di dalam React
 - [ ] Looping List of Data di dalam React
-- [ ] Lifecycle component menggunakan useEffect
+- [x] Lifecycle component menggunakan useEffect
 - [x] Membuat server (json-server)
 - [ ] Membuat react app untuk client-user (Styling)
 - [ ] Membuat react app untuk client-admin (CRUD)
 - [x] Menentukan Thema Aplikasi
-- [ ] Menentukan Design dan pemilihan CSS Framework
+- [x] Menentukan Design dan pemilihan CSS Framework
 
 **Report:**
 
-...
+> Pada tugas ini, saya memilih Tema Brand Showcase dengan mengambil referensi dari Sweetwater ( https://www.sweetwater.com/ ). 
+Saya juga akan menggunakan CSS Framework yaitu Tailwind CSS
 
-> contoh: Hari ini saya belajar React Component. Saya memahami bagaimana cara React bekerja. Lifecycle yang sudah saya coba adalah componentDidMount yang digunakan untuk fetch data dst. Namun saya belum mencoba menggunakan onSubmit dikarenakan data yang didapat belum sesuai.
-> Pada tugas ini, saya memilih Tema A dengan mengambil referensi dari B. Saya juga akan menggunakan CSS Framework yaitu Tailwind CSS
+> Hari ini saya belajar React Component. Saya mulai sedikit memahami bagaimana cara React bekerja. 
+Saya sudah coba Lifecycle untuk fetch data Products melalui useEffect. Next, saya akan coba untuk rendering data tersebut dengan Looping.
 
 ## W1D2
 
