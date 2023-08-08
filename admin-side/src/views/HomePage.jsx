@@ -9,6 +9,14 @@ export default function HomePage() {
   const { data: categories, isLoading: loadingCategories } =
     useFetch("/categories");
 
+  const generateSlug = (name) => {
+    return name
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
+  };
+
   const [input, setInput] = useState({
     name: "",
     slug: null,
@@ -24,19 +32,23 @@ export default function HomePage() {
   const onChangeInput = (event) => {
     const value = event.target.value;
     const eventInputName = event.target.name;
-    setInput({ ...input, [eventInputName]: value });
-  };
-
-  const generateSlug = (name) => {
-    return name
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, "")
-      .replace(/\s+/g, "-");
+    if (eventInputName === "name") {
+      setInput({
+        ...input,
+        name: value,
+        slug: generateSlug(value),
+      });
+    } else if (eventInputName === "price") {
+      const floatPrice = parseFloat(value, 10);
+      setInput({ ...input, price: floatPrice });
+    } else {
+      const eventInputValue = eventInputName === "categoryId" ? parseInt(value) : value;
+      setInput({ ...input, [eventInputName]: eventInputValue });
+    }
   };
 
   const postProduct = async () => {
     try {
-      setInput({ ...input, slug: generateSlug(input.name) });
       await fetch(baseUrl + "/products", {
         method: "POST",
         body: JSON.stringify(input),
@@ -88,7 +100,7 @@ export default function HomePage() {
           ))}
         </div>
       )}
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name</label>
           <input
@@ -113,6 +125,7 @@ export default function HomePage() {
           <input
             onChange={onChangeInput}
             type="number"
+            step="0.01"
             name="price"
             className=" form-input"
           />
@@ -131,16 +144,15 @@ export default function HomePage() {
           <select
             onChange={onChangeInput}
             name="categoryId"
-            defaultValue=""
             className="form-select w-1/5 rounded-md focus:ring-sky-400 focus:border-sky-400 text-black"
           >
             {loadingCategories ? (
               <>
-                <option defaultValue="">Loading...</option>
+                <option>Loading...</option>
               </>
             ) : (
               <>
-                <option defaultValue="" selected disabled>
+                <option selected disabled>
                   -- Select Category --
                 </option>
                 {categories.map((category) => {
@@ -155,9 +167,7 @@ export default function HomePage() {
           </select>
         </div>
         <div>
-          <button onClick={handleSubmit} type="submit">
-            Add
-          </button>
+          <button type="submit">Add</button>
         </div>
       </form>
     </>
