@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Card from "./components/Card"
-const baseUrl = "http://localhost:3000";
+import useFetch from "./hooks/useFetch";
 
 function App() {
   const [formLogin, setFormLogin] = useState({
@@ -11,27 +11,7 @@ function App() {
     registerEmail: "",
     registerPassword: "",
   });
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const fetchProductData = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch(baseUrl + "/products", {
-        method: "GET",
-      });
-      const data = await response.json();
-      setProducts(data);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProductData();
-  }, []);
+  const { data: products, isLoading } = useFetch("/products")
 
   const onRegisterInput = (event) => {
     const value = event.target.value;

@@ -41,7 +41,7 @@ Saya sudah coba Lifecycle untuk fetch data Products melalui useEffect. Saya juga
 Target:
 
 - [x] Lecture - Custom Hooks
-- [ ] Rules of Hooks
+- [x] Rules of Hooks
 - [ ] Lecture - React-Router
 - [ ] Membuat router user-side (min: home, detail)
 - [ ] Membuat router admin-side (min: login, add admin, CRUD main entitas, CRUD another entitas)
