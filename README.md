@@ -18,7 +18,7 @@ Target:
 - [x] React: Class Component vs Function Component
 - [x] Mempelajari State menggunakan useState
 - [ ] Mengirim Props baik berupa sebuah state atau function
-- [ ] Event Handling (onClick, onChange, onSubmit)
+- [x] Event Handling (onClick, onChange, onSubmit)
 - [x] Conditional Rendering di dalam React
 - [x] Looping List of Data di dalam React
 - [x] Lifecycle component menggunakan useEffect
@@ -34,7 +34,7 @@ Target:
 Saya juga akan menggunakan CSS Framework yaitu Tailwind CSS
 
 > Hari ini saya belajar React Component. Saya mulai sedikit memahami bagaimana cara React bekerja. 
-Saya sudah coba Lifecycle untuk fetch data Products melalui useEffect. Next, saya akan coba Event Handling.
+Saya sudah coba Lifecycle untuk fetch data Products melalui useEffect. Next, saya akan coba mengirim props.
 
 ## W1D2
 
