@@ -1,8 +1,68 @@
 import useFetch from "../hooks/useFetch";
 import Card from "../components/Card";
+import { useState } from "react";
+
+const baseUrl = "http://localhost:3000";
 
 export default function HomePage() {
   const { data: products, isLoading } = useFetch("/products");
+  const { data: categories, isLoading: loadingCategories } =
+    useFetch("/categories");
+
+  const [input, setInput] = useState({
+    name: "",
+    slug: null,
+    description: "",
+    price: 0.0,
+    mainImg: "",
+    categoryId: null,
+    authorId: 1,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
+
+  const onChangeInput = (event) => {
+    const value = event.target.value;
+    const eventInputName = event.target.name;
+    setInput({ ...input, [eventInputName]: value });
+  };
+
+  const generateSlug = (name) => {
+    return name
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-");
+  };
+
+  const postProduct = async () => {
+    try {
+      setInput({ ...input, slug: generateSlug(input.name) });
+      await fetch(baseUrl + "/products", {
+        method: "POST",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      setInput({
+        name: "",
+        slug: null,
+        description: "",
+        price: 0.0,
+        mainImg: "",
+        categoryId: null,
+        authorId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = () => {
+    postProduct();
+  };
 
   return (
     <>
@@ -28,6 +88,78 @@ export default function HomePage() {
           ))}
         </div>
       )}
+      <form>
+        <div>
+          <label htmlFor="name">Name</label>
+          <input
+            onChange={onChangeInput}
+            type="text"
+            name="name"
+            className=" form-input"
+          />
+        </div>
+        <div>
+          <label htmlFor="description">Description</label>
+          <textarea
+            onChange={onChangeInput}
+            name="description"
+            cols="30"
+            rows="10"
+            className=" form-textarea"
+          ></textarea>
+        </div>
+        <div>
+          <label htmlFor="price">Price</label>
+          <input
+            onChange={onChangeInput}
+            type="number"
+            name="price"
+            className=" form-input"
+          />
+        </div>
+        <div>
+          <label htmlFor="mainImg">Main Image</label>
+          <input
+            onChange={onChangeInput}
+            type="text"
+            name="mainImg"
+            className=" form-input"
+          />
+        </div>
+        <div>
+          <label htmlFor="categoryId">Category</label>
+          <select
+            onChange={onChangeInput}
+            name="categoryId"
+            defaultValue=""
+            className="form-select w-1/5 rounded-md focus:ring-sky-400 focus:border-sky-400 text-black"
+          >
+            {loadingCategories ? (
+              <>
+                <option defaultValue="">Loading...</option>
+              </>
+            ) : (
+              <>
+                <option defaultValue="" selected disabled>
+                  -- Select Category --
+                </option>
+                {categories.map((category) => {
+                  return (
+                    <option value={category.id} key={category.id}>
+                      {category.name}
+                    </option>
+                  );
+                })}
+              </>
+            )}
+          </select>
+        </div>
+        <div>
+          <button onClick={handleSubmit} type="submit">
+            Add
+          </button>
+        </div>
+      </form>
     </>
   );
 }

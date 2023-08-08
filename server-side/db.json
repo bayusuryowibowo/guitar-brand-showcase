@@ -25,12 +25,24 @@
       "name": "Gibson Slash 'Victoria' Les Paul - Goldtop",
       "slug": "gibson-slash-victoria-les-paul-goldtop",
       "description": "Known primarily for his work with the hard rock band Guns N' Roses, Slash has garnered a well-earned reputation as one of rock's preeminent guitarists. Named the runner-up on Time magazine's list of 'The 10 Best Electric Guitar Players' in 2009, and No. 65 on Rolling Stone magazine's list of 'The 100 Greatest Guitarists of All Time' in 2011, Slash continues to receive accolades from critics and music fans alike. Aside from his enormous success with Guns N' Roses, Slash has also achieved acclaim with his side project, Slash's Snakepit, and as a member of the supergroup Velvet Revolver. He's recorded four solo albums, including three with his band, Slash Featuring Myles Kennedy and the Conspirators. In 2012, Slash received one of rock music's highest honors when he was inducted into the Rock and Roll Hall of Fame alongside his Guns N' Roses bandmates.",
-      "price": 3199.00,
+      "price": 3199,
       "mainImg": "https://media.sweetwater.com/api/i/q-70__h-300__w-300__f-png__b-original/images/items/1800/LPSSPGTNH-xlarge.jpg",
       "categoryId": 1,
       "authorId": 1,
       "createdAt": "2023-08-07T00:00:00Z",
       "updatedAt": "2023-08-07T00:00:00Z"
+    },
+    {
+      "name": "Schecter Synyster Gates Custom-S - Gloss Black with Silver Stripes",
+      "slug": null,
+      "description": "There are metal guitars, and then there's the Schecter Synyster Gates Custom-S solidbody electric guitar. If you're looking for an axe that can withstand the brutal riffing and impossible solos of its namesake, this is the guitar for you. A super-hot Schecter Synyster Gates signature humbucking pickup and Sustainiac humbucker in the neck position provide a solid base for riffing and let you pull off solos that sing forever. And since the Synyster Gates Custom-S also comes equipped with a genuine Floyd Rose 1500 tremolo bridge, you're all set for ultimate pitch control and rock-solid tuning stability.",
+      "price": "1399.00",
+      "mainImg": "https://media.sweetwater.com/api/i/q-70__h-300__w-300__f-png__b-original/images/items/1800/SynGCSSBkSlv-xlarge.jpg",
+      "categoryId": "1",
+      "authorId": 1,
+      "createdAt": "2023-08-08T13:35:21.598Z",
+      "updatedAt": "2023-08-08T13:35:21.598Z",
+      "id": 2
     }
   ],
   "categories": [
