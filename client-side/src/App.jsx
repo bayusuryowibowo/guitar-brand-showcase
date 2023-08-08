@@ -17,7 +17,7 @@ function App() {
       setProducts(data);
       setTimeout(() => {
         setIsLoading(false);
-      }, 5000);
+      }, 1000);
     } catch (error) {
       console.log(error);
     }

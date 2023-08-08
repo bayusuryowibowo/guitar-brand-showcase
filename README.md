@@ -1,8 +1,8 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=11527062&assignment_repo_type=AssignmentRepo)
 # P3-Challenge-1
 
-- Tema Aplikasi: ...
-- CSS Framework: ...
+- Tema Aplikasi: Brand Showcase
+- CSS Framework: Tailwind CSS
 
 Struktur Folder:
 
@@ -19,8 +19,8 @@ Target:
 - [x] Mempelajari State menggunakan useState
 - [ ] Mengirim Props baik berupa sebuah state atau function
 - [ ] Event Handling (onClick, onChange, onSubmit)
-- [ ] Conditional Rendering di dalam React
-- [ ] Looping List of Data di dalam React
+- [x] Conditional Rendering di dalam React
+- [x] Looping List of Data di dalam React
 - [x] Lifecycle component menggunakan useEffect
 - [x] Membuat server (json-server)
 - [ ] Membuat react app untuk client-user (Styling)
@@ -34,7 +34,7 @@ Target:
 Saya juga akan menggunakan CSS Framework yaitu Tailwind CSS
 
 > Hari ini saya belajar React Component. Saya mulai sedikit memahami bagaimana cara React bekerja. 
-Saya sudah coba Lifecycle untuk fetch data Products melalui useEffect. Next, saya akan coba untuk rendering data tersebut dengan Looping.
+Saya sudah coba Lifecycle untuk fetch data Products melalui useEffect. Next, saya akan coba Event Handling.
 
 ## W1D2
 
