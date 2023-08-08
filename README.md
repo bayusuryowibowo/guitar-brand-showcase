@@ -6,9 +6,9 @@
 
 Struktur Folder:
 
-- server (PORT: 3000)
-- client-user
-- client-admin
+- admin-side
+- client-side
+- server-side (PORT: 3000)
 
 ## W1D1
 
@@ -42,7 +42,7 @@ Target:
 
 - [x] Lecture - Custom Hooks
 - [x] Rules of Hooks
-- [ ] Lecture - React-Router
+- [x] Lecture - React-Router
 - [ ] Membuat router user-side (min: home, detail)
 - [ ] Membuat router admin-side (min: login, add admin, CRUD main entitas, CRUD another entitas)
 - [ ] Membuat privateRoute untuk admin

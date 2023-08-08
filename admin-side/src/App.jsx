@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Card from "./components/Card"
+import Card from "./components/Card";
 import useFetch from "./hooks/useFetch";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     registerEmail: "",
     registerPassword: "",
   });
-  const { data: products, isLoading } = useFetch("/products")
+  const { data: products, isLoading } = useFetch("/products");
 
   const onRegisterInput = (event) => {
     const value = event.target.value;
