@@ -17,7 +17,7 @@ Target:
 - [x] Lecture - React Intro
 - [x] React: Class Component vs Function Component
 - [x] Mempelajari State menggunakan useState
-- [ ] Mengirim Props baik berupa sebuah state atau function
+- [x] Mengirim Props baik berupa sebuah state atau function
 - [x] Event Handling (onClick, onChange, onSubmit)
 - [x] Conditional Rendering di dalam React
 - [x] Looping List of Data di dalam React
@@ -34,13 +34,13 @@ Target:
 Saya juga akan menggunakan CSS Framework yaitu Tailwind CSS
 
 > Hari ini saya belajar React Component. Saya mulai sedikit memahami bagaimana cara React bekerja. 
-Saya sudah coba Lifecycle untuk fetch data Products melalui useEffect. Next, saya akan coba mengirim props.
+Saya sudah coba Lifecycle untuk fetch data Products melalui useEffect. Saya juga sudah coba mengirim props, Event Handling, Conditional Rendering, Looping Card. Next, saya akan coba melengkapi fitur-fitur yang utama terlebih dahulu di client untuk admin maupun user.
 
 ## W1D2
 
 Target:
 
-- [ ] Lecture - Custom Hooks
+- [x] Lecture - Custom Hooks
 - [ ] Rules of Hooks
 - [ ] Lecture - React-Router
 - [ ] Membuat router user-side (min: home, detail)
