@@ -61,7 +61,7 @@ Target:
 - [x] Bagaimana cara membuat Reducer
 - [x] Bagaimana cara membuat Action
 - [x] Membuat Action Creators
-- [ ] Membuat Action Types
+- [x] Membuat Action Types
 - [x] Lecture - Redux-thunk (handle async)
 - [ ] Cara menggunakan combineReducers
 

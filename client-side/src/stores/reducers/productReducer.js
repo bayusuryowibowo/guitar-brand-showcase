@@ -1,3 +1,9 @@
+import {
+  FETCH_PRODUCTS_FAILED,
+  FETCH_PRODUCTS_REQUEST,
+  FETCH_PRODUCTS_SUCCESS,
+} from "../actions/actionType";
+
 const initialState = {
   products: [],
   loading: false,
@@ -5,11 +11,11 @@ const initialState = {
 };
 export default function productReducer(state = initialState, action) {
   switch (action.type) {
-    case "product/fetchProductsRequest":
+    case FETCH_PRODUCTS_REQUEST:
       return { ...state, loading: true };
-    case "product/fetchProductsSuccess":
+    case FETCH_PRODUCTS_SUCCESS:
       return { ...state, loading: false, products: action.payload };
-    case "product/fetchProductsFailed":
+    case FETCH_PRODUCTS_FAILED:
       return { ...state, loading: false, error: action.payload };
     default:
       return state;

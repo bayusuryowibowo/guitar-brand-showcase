@@ -44,6 +44,9 @@ export default function LandingPage() {
                   <h5 className="text-xl text-black font-semibold text-center">
                     {product.name}
                   </h5>
+                  <span className=" text-lg text-black font-medium text-center">
+                    $ {product.price}
+                  </span>
                 </div>
               </div>
             </div>
