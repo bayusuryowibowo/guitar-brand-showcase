@@ -21,11 +21,11 @@ export default function HomePage() {
 
   const [input, setInput] = useState({
     name: "",
-    slug: null,
+    slug: "",
     description: "",
     price: 0.0,
     mainImg: "",
-    categoryId: undefined,
+    categoryId: "",
     authorId: 1,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -61,11 +61,11 @@ export default function HomePage() {
       });
       setInput({
         name: "",
-        slug: null,
+        slug: "",
         description: "",
         price: 0.0,
         mainImg: "",
-        categoryId: undefined,
+        categoryId: "",
         authorId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -100,11 +100,11 @@ export default function HomePage() {
       });
       setInput({
         name: "",
-        slug: null,
+        slug: "",
         description: "",
         price: 0.0,
         mainImg: "",
-        categoryId: undefined,
+        categoryId: "",
         authorId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -120,6 +120,9 @@ export default function HomePage() {
     try {
       await fetch(baseUrl + `/products/${id}`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        }
       });
     } catch (error) {
       console.log(error);
