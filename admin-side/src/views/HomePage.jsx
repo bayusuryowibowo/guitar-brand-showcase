@@ -8,6 +8,8 @@ export default function HomePage() {
   const { data: products, isLoading } = useFetch("/products");
   const { data: categories, isLoading: loadingCategories } =
     useFetch("/categories");
+  const [product, setProduct] = useState({})
+  const [isEdit, setIsEdit] = useState(false)
 
   const generateSlug = (name) => {
     return name
@@ -42,7 +44,8 @@ export default function HomePage() {
       const floatPrice = parseFloat(value, 10);
       setInput({ ...input, price: floatPrice });
     } else {
-      const eventInputValue = eventInputName === "categoryId" ? parseInt(value) : value;
+      const eventInputValue =
+        eventInputName === "categoryId" ? parseInt(value) : value;
       setInput({ ...input, [eventInputName]: eventInputValue });
     }
   };
@@ -72,8 +75,50 @@ export default function HomePage() {
     }
   };
 
-  const handleSubmit = () => {
-    postProduct();
+  const getProduct = async (id) => {
+    try {
+      setIsEdit(true)
+      const response = await fetch(baseUrl + `/products/${id}`, {
+        method: "GET",
+      });
+      const parsedData = await response.json();
+      setProduct(parsedData);
+      setInput(product)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const putProduct = async (id) => {
+    try {
+      console.log(id)
+      await fetch(baseUrl + `/products/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      setInput({
+        name: "",
+        slug: null,
+        description: "",
+        price: 0.0,
+        mainImg: "",
+        categoryId: null,
+        authorId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+      setIsEdit(false)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    isEdit === true ? putProduct(product.id) : postProduct();
   };
 
   return (
@@ -96,7 +141,7 @@ export default function HomePage() {
       ) : (
         <div className=" grid grid-cols-5">
           {products.map((product) => (
-            <Card product={product} key={product.id} />
+            <Card product={product} key={product.id} onEditClick={getProduct} />
           ))}
         </div>
       )}
@@ -105,6 +150,7 @@ export default function HomePage() {
           <label htmlFor="name">Name</label>
           <input
             onChange={onChangeInput}
+            value={isEdit === true ? input.name : undefined}
             type="text"
             name="name"
             className=" form-input"
@@ -114,6 +160,7 @@ export default function HomePage() {
           <label htmlFor="description">Description</label>
           <textarea
             onChange={onChangeInput}
+            value={isEdit === true ? input.description : undefined}
             name="description"
             cols="30"
             rows="10"
@@ -124,6 +171,7 @@ export default function HomePage() {
           <label htmlFor="price">Price</label>
           <input
             onChange={onChangeInput}
+            value={isEdit === true ? input.price : undefined}
             type="number"
             step="0.01"
             name="price"
@@ -134,6 +182,7 @@ export default function HomePage() {
           <label htmlFor="mainImg">Main Image</label>
           <input
             onChange={onChangeInput}
+            value={isEdit === true ? input.mainImg : undefined}
             type="text"
             name="mainImg"
             className=" form-input"
@@ -143,6 +192,7 @@ export default function HomePage() {
           <label htmlFor="categoryId">Category</label>
           <select
             onChange={onChangeInput}
+            value={isEdit === true ? input.categoryId : undefined}
             name="categoryId"
             className="form-select w-1/5 rounded-md focus:ring-sky-400 focus:border-sky-400 text-black"
           >
@@ -152,7 +202,7 @@ export default function HomePage() {
               </>
             ) : (
               <>
-                <option selected disabled>
+                <option disabled>
                   -- Select Category --
                 </option>
                 {categories.map((category) => {
@@ -167,7 +217,7 @@ export default function HomePage() {
           </select>
         </div>
         <div>
-          <button type="submit">Add</button>
+          <button type="submit">{isEdit === true ? 'Edit' : 'Add'}</button>
         </div>
       </form>
     </>

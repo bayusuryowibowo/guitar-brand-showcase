@@ -1,4 +1,5 @@
-export default function Card({ product }) {
+export default function Card({ product, onEditClick }) {
+
   return (
     <>
       <div
@@ -14,6 +15,9 @@ export default function Card({ product }) {
             <h5 className="text-xl text-black font-semibold text-center">
               {product.name}
             </h5>
+            <button onClick={() => onEditClick(product.id)}>
+              Edit
+            </button>
           </div>
         </div>
       </div>
