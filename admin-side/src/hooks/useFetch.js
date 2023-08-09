@@ -14,9 +14,6 @@ export default function useFetch(path) {
       });
       const parsedData = await response.json();
       setData(parsedData);
-      // setTimeout(() => {
-
-      // }, 1000);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
