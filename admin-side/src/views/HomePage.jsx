@@ -8,8 +8,8 @@ export default function HomePage() {
   const { data: products, isLoading } = useFetch("/products");
   const { data: categories, isLoading: loadingCategories } =
     useFetch("/categories");
-  const [product, setProduct] = useState({})
-  const [isEdit, setIsEdit] = useState(false)
+  const [product, setProduct] = useState({});
+  const [isEdit, setIsEdit] = useState(false);
 
   const generateSlug = (name) => {
     return name
@@ -25,7 +25,7 @@ export default function HomePage() {
     description: "",
     price: 0.0,
     mainImg: "",
-    categoryId: null,
+    categoryId: undefined,
     authorId: 1,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -65,7 +65,7 @@ export default function HomePage() {
         description: "",
         price: 0.0,
         mainImg: "",
-        categoryId: null,
+        categoryId: undefined,
         authorId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -77,21 +77,20 @@ export default function HomePage() {
 
   const getProduct = async (id) => {
     try {
-      setIsEdit(true)
+      setIsEdit(true);
       const response = await fetch(baseUrl + `/products/${id}`, {
         method: "GET",
       });
       const parsedData = await response.json();
       setProduct(parsedData);
-      setInput(product)
+      setInput(product);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const putProduct = async (id) => {
     try {
-      console.log(id)
       await fetch(baseUrl + `/products/${id}`, {
         method: "PUT",
         body: JSON.stringify(input),
@@ -105,20 +104,35 @@ export default function HomePage() {
         description: "",
         price: 0.0,
         mainImg: "",
-        categoryId: null,
+        categoryId: undefined,
         authorId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
-      setIsEdit(false)
+      setIsEdit(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // data berhasil kedelete tetapi response status 500 ??
+  const deleteProduct = async (id) => {
+    try {
+      await fetch(baseUrl + `/products/${id}`, {
+        method: "DELETE",
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     isEdit === true ? putProduct(product.id) : postProduct();
+  };
+
+  const handleDeleteClick = (id) => {
+    deleteProduct(id);
   };
 
   return (
@@ -141,7 +155,12 @@ export default function HomePage() {
       ) : (
         <div className=" grid grid-cols-5">
           {products.map((product) => (
-            <Card product={product} key={product.id} onEditClick={getProduct} />
+            <Card
+              product={product}
+              key={product.id}
+              onEditClick={getProduct}
+              onDeleteClick={handleDeleteClick}
+            />
           ))}
         </div>
       )}
@@ -150,7 +169,7 @@ export default function HomePage() {
           <label htmlFor="name">Name</label>
           <input
             onChange={onChangeInput}
-            value={isEdit === true ? input.name : undefined}
+            value={input.name}
             type="text"
             name="name"
             className=" form-input"
@@ -160,7 +179,7 @@ export default function HomePage() {
           <label htmlFor="description">Description</label>
           <textarea
             onChange={onChangeInput}
-            value={isEdit === true ? input.description : undefined}
+            value={input.description}
             name="description"
             cols="30"
             rows="10"
@@ -171,7 +190,7 @@ export default function HomePage() {
           <label htmlFor="price">Price</label>
           <input
             onChange={onChangeInput}
-            value={isEdit === true ? input.price : undefined}
+            value={input.price}
             type="number"
             step="0.01"
             name="price"
@@ -182,7 +201,7 @@ export default function HomePage() {
           <label htmlFor="mainImg">Main Image</label>
           <input
             onChange={onChangeInput}
-            value={isEdit === true ? input.mainImg : undefined}
+            value={input.mainImg}
             type="text"
             name="mainImg"
             className=" form-input"
@@ -192,7 +211,7 @@ export default function HomePage() {
           <label htmlFor="categoryId">Category</label>
           <select
             onChange={onChangeInput}
-            value={isEdit === true ? input.categoryId : undefined}
+            value={input.categoryId}
             name="categoryId"
             className="form-select w-1/5 rounded-md focus:ring-sky-400 focus:border-sky-400 text-black"
           >
@@ -202,9 +221,7 @@ export default function HomePage() {
               </>
             ) : (
               <>
-                <option disabled>
-                  -- Select Category --
-                </option>
+                <option disabled>-- Select Category --</option>
                 {categories.map((category) => {
                   return (
                     <option value={category.id} key={category.id}>
@@ -217,7 +234,7 @@ export default function HomePage() {
           </select>
         </div>
         <div>
-          <button type="submit">{isEdit === true ? 'Edit' : 'Add'}</button>
+          <button type="submit">{isEdit === true ? "Edit" : "Add"}</button>
         </div>
       </form>
     </>
