@@ -67,7 +67,10 @@ Target:
 
 **Report:**
 
-...
+> Malam ini saya sudah membaca-baca dokumentasi mengenai konsep dispatch. Lalu membaca konsep thunk sebagai middleware.
+Sehingga saya mulai memahami bagaimana dispatch bekerja & yang aksesnya dibantu/diperantarai oleh thunk, hingga alurnya.
+
+> Next, besok pagi/subuh sekitar jam 04.30, saya akan melanjutkan pengerjaan Redux, Action Types, dan combineReducers
 
 ## W1D4
 

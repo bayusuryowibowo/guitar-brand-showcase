@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-
 const baseUrl = "http://localhost:3000";
 
 export const fetchProductsRequest = () => {

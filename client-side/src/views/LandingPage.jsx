@@ -1,21 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchProductData,
-  fetchProductsRequest,
-} from "../stores/actions/actionCreator";
+import { fetchProductData } from "../stores/actions/actionCreator";
 
 export default function LandingPage() {
-  // const [products, setProducts] = useState([]);
   const products = useSelector((state) => state.products);
-  // console.log(products)
-  // const [isLoading, setIsLoading] = useState(false);
   const isLoading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(fetchProductsRequest());
-    dispatch(fetchProductData())
+    dispatch(fetchProductData());
   }, []);
 
   return (
