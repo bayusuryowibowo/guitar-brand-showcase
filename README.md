@@ -43,7 +43,7 @@ Target:
 - [x] Lecture - Custom Hooks
 - [x] Rules of Hooks
 - [x] Lecture - React-Router
-- [ ] Membuat router user-side (min: home, detail)
+- [x] Membuat router user-side (min: home, detail)
 - [x] Membuat router admin-side (min: login, add admin, CRUD main entitas, CRUD another entitas)
 - [x] Membuat privateRoute untuk admin
 
@@ -62,7 +62,7 @@ Target:
 - [ ] Bagaimana cara membuat Action
 - [ ] Membuat Action Creators
 - [ ] Membuat Action Types
-- [ ] Lecture - Redux-thunk (handle async)
+- [x] Lecture - Redux-thunk (handle async)
 - [ ] Cara menggunakan combineReducers
 
 **Report:**
