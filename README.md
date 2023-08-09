@@ -24,7 +24,7 @@ Target:
 - [x] Lifecycle component menggunakan useEffect
 - [x] Membuat server (json-server)
 - [ ] Membuat react app untuk client-user (Styling)
-- [ ] Membuat react app untuk client-admin (CRUD)
+- [x] Membuat react app untuk client-admin (CRUD)
 - [x] Menentukan Thema Aplikasi
 - [x] Menentukan Design dan pemilihan CSS Framework
 
@@ -45,7 +45,7 @@ Target:
 - [x] Lecture - React-Router
 - [ ] Membuat router user-side (min: home, detail)
 - [x] Membuat router admin-side (min: login, add admin, CRUD main entitas, CRUD another entitas)
-- [ ] Membuat privateRoute untuk admin
+- [x] Membuat privateRoute untuk admin
 
 **Report:**
 
@@ -55,7 +55,7 @@ Target:
 
 Target:
 
-- [ ] Lecture - Redux
+- [x] Lecture - Redux
 - [ ] State vs Global State
 - [ ] Bagaimana cara membuat Store
 - [ ] Bagaimana cara membuat Reducer
