@@ -1,28 +1,21 @@
-import { useEffect, useState } from "react";
-
-const baseUrl = "http://localhost:3000";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchProductData,
+  fetchProductsRequest,
+} from "../stores/actions/actionCreator";
 
 export default function LandingPage() {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const fetchProductData = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch(baseUrl + "/products", {
-        method: "GET",
-      });
-      const data = await response.json();
-      setProducts(data);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const [products, setProducts] = useState([]);
+  const products = useSelector((state) => state.products);
+  // console.log(products)
+  // const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector((state) => state.loading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchProductData();
+    // dispatch(fetchProductsRequest());
+    dispatch(fetchProductData())
   }, []);
 
   return (
