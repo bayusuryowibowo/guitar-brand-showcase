@@ -63,7 +63,7 @@ Target:
 - [x] Membuat Action Creators
 - [x] Membuat Action Types
 - [x] Lecture - Redux-thunk (handle async)
-- [ ] Cara menggunakan combineReducers
+- [x] Cara menggunakan combineReducers
 
 **Report:**
 
