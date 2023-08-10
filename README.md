@@ -79,8 +79,8 @@ Target:
 - [x] Lecture - SQL Transaction
 - [x] Membuat server mengguanakan express.js, postgreSQL dan Sequelize
 - [x] Menentukan associations antar tables
-- [ ] Lecture - AWS EC2
-- [ ] Membuat transaction saat membuat entitas baru pada main table. Pastikan ada assosiasi di dalamnya
+- [x] Lecture - AWS EC2
+- [x] Membuat transaction saat membuat entitas baru pada main table. Pastikan ada assosiasi di dalamnya
 
 **Report:**
 

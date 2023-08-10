@@ -19,14 +19,9 @@ module.exports = {
       },
       slug: {
         type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-          notNull: true,
-          notEmpty: true,
-        },
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
         validate: {
           notNull: true,
@@ -34,12 +29,12 @@ module.exports = {
         },
       },
       price: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
         allowNull: false,
         validate: {
           notNull: true,
           notEmpty: true,
-          min: 1,
+          min: 1.00,
         },
       },
       mainImg: {

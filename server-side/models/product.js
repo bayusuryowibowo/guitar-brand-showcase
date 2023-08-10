@@ -30,18 +30,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       slug: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "Slug is required",
-          },
-          notEmpty: {
-            msg: "Slug is required",
-          },
-        },
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           notNull: {
@@ -53,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
         validate: {
           notNull: {
@@ -63,8 +54,8 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Price is required",
           },
           min: {
-            args: 1,
-            msg: "Price minimum is 1",
+            args: 1.00,
+            msg: "Price minimum is 1.00",
           },
         },
       },
@@ -104,5 +95,18 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Product",
     }
   );
+
+  const generateSlug = (name) => {
+    return name
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
+  };
+
+  Product.beforeCreate((instance) => {
+    instance.slug = generateSlug(instance.name);
+  });
+
   return Product;
 };
