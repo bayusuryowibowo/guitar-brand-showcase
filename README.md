@@ -43,7 +43,7 @@ Target:
 - [x] Lecture - Custom Hooks
 - [x] Rules of Hooks
 - [x] Lecture - React-Router
-- [ ] Membuat router user-side (min: home, detail)
+- [x] Membuat router user-side (min: home, detail)
 - [x] Membuat router admin-side (min: login, add admin, CRUD main entitas, CRUD another entitas)
 - [x] Membuat privateRoute untuk admin
 
@@ -56,18 +56,21 @@ Target:
 Target:
 
 - [x] Lecture - Redux
-- [ ] State vs Global State
-- [ ] Bagaimana cara membuat Store
-- [ ] Bagaimana cara membuat Reducer
-- [ ] Bagaimana cara membuat Action
-- [ ] Membuat Action Creators
-- [ ] Membuat Action Types
-- [ ] Lecture - Redux-thunk (handle async)
-- [ ] Cara menggunakan combineReducers
+- [x] State vs Global State
+- [x] Bagaimana cara membuat Store
+- [x] Bagaimana cara membuat Reducer
+- [x] Bagaimana cara membuat Action
+- [x] Membuat Action Creators
+- [x] Membuat Action Types
+- [x] Lecture - Redux-thunk (handle async)
+- [x] Cara menggunakan combineReducers
 
 **Report:**
 
-...
+> Malam ini saya sudah membaca-baca dokumentasi mengenai konsep dispatch. Lalu membaca konsep thunk sebagai middleware.
+Sehingga saya mulai memahami bagaimana dispatch bekerja & yang aksesnya dibantu/diperantarai oleh thunk, hingga alurnya.
+
+> Next, besok pagi/subuh sekitar jam 04.30, saya akan melanjutkan pengerjaan Redux, Action Types, dan combineReducers
 
 ## W1D4
 
