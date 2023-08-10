@@ -1,7 +1,7 @@
 const { generateAccessToken } = require("../helpers/jwt");
 const { sequelize, User, Category, Product, Image } = require("../models");
 
-class Controller {
+class adminController {
   static async register(req, res, next) {
     try {
       const { email, username, password, phoneNumber, address } = req.body;
@@ -157,4 +157,4 @@ class Controller {
   }
 }
 
-module.exports = Controller;
+module.exports = adminController;

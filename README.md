@@ -84,7 +84,8 @@ Target:
 
 **Report:**
 
-...
+> Malam ini saya sudah menyelesaikan semua fitur di server.
+Next, saya akan melengkapi client yang masih kurang, kemudian mencoba wiring dengan server-nya
 
 ## W1D5
 

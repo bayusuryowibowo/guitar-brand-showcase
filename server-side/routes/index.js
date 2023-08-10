@@ -1,18 +1,17 @@
 "use strict";
 const express = require("express");
 const router = express.Router();
-const Controller = require("../controllers");
 const auth = require("../middlewares/auth");
+const adminAuth = require("./adminAuth");
+const products = require("./products");
+const categories = require("./categories");
+const pub = require("./pub");
 
-router.post("/register", Controller.register);
-router.post("/login", Controller.login);
-router.use(auth);
-router.post("/products", Controller.addProduct);
-router.get("/products", Controller.readProducts);
-router.get("/products/:id", Controller.readProductById);
-router.put("/products/:id", Controller.editProduct);
-router.delete("/products/:id", Controller.deleteProduct);
-router.post("/categories", Controller.addCategory);
-router.get("/categories", Controller.readCategories);
+router
+  .use("/pub", pub)
+  .use(adminAuth)
+  .use(auth)
+  .use("/products", products)
+  .use("/categories", categories);
 
 module.exports = router;
