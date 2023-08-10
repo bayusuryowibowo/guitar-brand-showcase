@@ -76,9 +76,9 @@ Sehingga saya mulai memahami bagaimana dispatch bekerja & yang aksesnya dibantu/
 
 Target:
 
-- [ ] Lecture - SQL Transaction
-- [ ] Membuat server mengguanakan express.js, postgreSQL dan Sequelize
-- [ ] Menentukan associations antar tables
+- [x] Lecture - SQL Transaction
+- [x] Membuat server mengguanakan express.js, postgreSQL dan Sequelize
+- [x] Menentukan associations antar tables
 - [ ] Lecture - AWS EC2
 - [ ] Membuat transaction saat membuat entitas baru pada main table. Pastikan ada assosiasi di dalamnya
 
