@@ -30,6 +30,10 @@ const errorHandler = (err, req, res, next) => {
       code = 401;
       message = "Unauthorized";
       break;
+    case "NotFound":
+      code = 404;
+      message = "Data not found";
+      break;
     default:
       break;
   }
