@@ -5,6 +5,8 @@ import {
   FETCH_PRODUCTS_FAILED,
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_SUCCESS,
+  POST_LOGIN_FAILED,
+  POST_LOGIN_SUCCESS,
 } from "./actionType";
 
 const baseUrl = "http://localhost:3000";
@@ -32,22 +34,22 @@ export const fetchProductsFailed = (payload) => {
 export const fetchProducts = () => {
   return async (dispatch) => {
     try {
-      dispatch(fetchProductsRequest())
+      dispatch(fetchProductsRequest());
       const response = await fetch(baseUrl + "/products", {
         method: "GET",
         headers: {
-          access_token: localStorage.access_token
-        }
-      })
+          access_token: localStorage.access_token,
+        },
+      });
       const parsedData = await response.json();
-      const action = fetchProductsSuccess(parsedData)
-      dispatch(action)
+      const action = fetchProductsSuccess(parsedData);
+      dispatch(action);
     } catch (error) {
-      const action = fetchProductsFailed(error)
-      dispatch(action)
+      const action = fetchProductsFailed(error);
+      dispatch(action);
     }
-  }
-}
+  };
+};
 
 export const fetchCategoriesRequest = () => {
   return {
@@ -72,19 +74,64 @@ export const fetchCategoriesFailed = (payload) => {
 export const fetchCategories = () => {
   return async (dispatch) => {
     try {
-      dispatch(fetchCategoriesRequest())
+      dispatch(fetchCategoriesRequest());
       const response = await fetch(baseUrl + "/categories", {
         method: "GET",
         headers: {
-          access_token: localStorage.access_token
-        }
-      })
-      const parsedData = await response.json()
-      const action = fetchCategoriesSuccess(parsedData)
-      dispatch(action)
+          access_token: localStorage.access_token,
+        },
+      });
+      const parsedData = await response.json();
+      const action = fetchCategoriesSuccess(parsedData);
+      dispatch(action);
     } catch (error) {
-      const action = fetchCategoriesFailed(error)
-      dispatch(action)
+      const action = fetchCategoriesFailed(error);
+      dispatch(action);
     }
-  }
-}
+  };
+};
+
+export const postLoginSuccess = (payload) => {
+  return {
+    type: POST_LOGIN_SUCCESS,
+    payload,
+  };
+};
+
+export const postLoginFailed = (payload) => {
+  return {
+    type: POST_LOGIN_FAILED,
+    payload,
+  };
+};
+
+export const postLogin = (input) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(baseUrl + "/login", {
+        method: "POST",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const { message, access_token } = await response.json();
+      const payload = {
+        statusText: response.statusText,
+        status: response.status,
+        message,
+      };
+      dispatch(postLoginSuccess(payload));
+      localStorage.access_token = access_token;
+      return;
+    } catch (error) {
+      const payload = {
+        statusText: error.response.statusText,
+        status: error.response.status,
+        message: error.message,
+      };
+      dispatch(postLoginFailed(payload));
+      throw error;
+    }
+  };
+};

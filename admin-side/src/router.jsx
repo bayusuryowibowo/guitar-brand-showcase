@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     element: <RegisterPage />,
     loader: () => {
       const access_token = localStorage.getItem("access_token");
-      if (access_token) throw redirect("/");
+      if (!access_token) throw redirect("/login");
       return null;
     },
   },

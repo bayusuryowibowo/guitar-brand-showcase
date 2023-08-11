@@ -6,3 +6,6 @@ export const FETCH_DETAIL_PRODUCT_SUCCESS = "product/fetchDetailProductSuccess";
 export const FETCH_CATEGORIES_REQUEST = "category/fetchCategoriesRequest";
 export const FETCH_CATEGORIES_SUCCESS = "category/fetchCategoriesSuccess";
 export const FETCH_CATEGORIES_FAILED = "category/fetchCategoriesFailed";
+
+export const POST_LOGIN_SUCCESS = "login/postLoginSucess";
+export const POST_LOGIN_FAILED = "login/postLoginFailed";

@@ -1,20 +1,49 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    localStorage.removeItem("access_token");
+    setIsLogin(false);
+    navigate("/login");
+  };
+
+  const watchLocalStorage = () => {
+    if (localStorage.access_token) setIsLogin(true);
+    else setIsLogin(false);
+  };
+
+  useEffect(() => {
+    watchLocalStorage();
+  }, []);
+
   return (
     <>
       <nav>
         <div>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <NavLink to="/">Home</NavLink>
             </li>
+            {!isLogin && (
+              <li>
+                <NavLink to="/login">Login</NavLink>
+              </li>
+            )}
             <li>
-              <Link to="/login">Login</Link>
+              <NavLink to="/register">Register</NavLink>
             </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
+            {isLogin && (
+              <li>
+                <a onClick={handleLogout} className=" cursor-pointer">
+                  Logout
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </nav>
