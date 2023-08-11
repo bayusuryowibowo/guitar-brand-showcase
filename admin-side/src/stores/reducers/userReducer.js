@@ -1,4 +1,9 @@
-import { POST_LOGIN_FAILED, POST_LOGIN_SUCCESS } from "../actions/actionType";
+import {
+  POST_LOGIN_FAILED,
+  POST_LOGIN_SUCCESS,
+  POST_REGISTER_FAILED,
+  POST_REGISTER_SUCCESS,
+} from "../actions/actionType";
 
 const initialState = {
   success: {
@@ -18,6 +23,10 @@ export default function userReducer(state = initialState, action) {
     case POST_LOGIN_SUCCESS:
       return { ...state, success: action.payload };
     case POST_LOGIN_FAILED:
+      return { ...state, error: action.payload };
+    case POST_REGISTER_SUCCESS:
+      return { ...state, success: action.payload };
+    case POST_REGISTER_FAILED:
       return { ...state, error: action.payload };
     default:
       return state;

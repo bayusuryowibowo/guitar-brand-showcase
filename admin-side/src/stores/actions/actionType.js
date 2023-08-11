@@ -7,5 +7,8 @@ export const FETCH_CATEGORIES_REQUEST = "category/fetchCategoriesRequest";
 export const FETCH_CATEGORIES_SUCCESS = "category/fetchCategoriesSuccess";
 export const FETCH_CATEGORIES_FAILED = "category/fetchCategoriesFailed";
 
-export const POST_LOGIN_SUCCESS = "login/postLoginSucess";
+export const POST_LOGIN_SUCCESS = "login/postLoginSuccess";
 export const POST_LOGIN_FAILED = "login/postLoginFailed";
+
+export const POST_REGISTER_SUCCESS = "register/postRegisterSuccess";
+export const POST_REGISTER_FAILED = "register/postRegisterFailed";

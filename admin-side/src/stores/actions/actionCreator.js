@@ -7,6 +7,8 @@ import {
   FETCH_PRODUCTS_SUCCESS,
   POST_LOGIN_FAILED,
   POST_LOGIN_SUCCESS,
+  POST_REGISTER_FAILED,
+  POST_REGISTER_SUCCESS,
 } from "./actionType";
 
 const baseUrl = "http://localhost:3000";
@@ -131,6 +133,50 @@ export const postLogin = (input) => {
         message: error.message,
       };
       dispatch(postLoginFailed(payload));
+      throw error;
+    }
+  };
+};
+
+export const postRegisterSuccess = (payload) => {
+  return {
+    type: POST_REGISTER_SUCCESS,
+    payload,
+  };
+};
+
+export const postRegisterFailed = (payload) => {
+  return {
+    type: POST_REGISTER_FAILED,
+    payload,
+  };
+};
+
+export const postRegister = (input) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(baseUrl + "/register", {
+        method: "POST",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const { message } = await response.json();
+      const payload = {
+        statusText: response.statusText,
+        status: response.status,
+        message,
+      };
+      dispatch(postRegisterSuccess(payload));
+      return;
+    } catch (error) {
+      const payload = {
+        statusText: error.response.statusText,
+        status: error.response.status,
+        message: error.response.message,
+      };
+      dispatch(postRegisterFailed(payload));
       throw error;
     }
   };
