@@ -1,27 +1,30 @@
-import useFetch from "../hooks/useFetch";
 import Card from "../components/Card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  fetchCategories,
+  fetchProducts,
+} from "../stores/actions/actionCreator";
+import { useDispatch, useSelector } from "react-redux";
 
 const baseUrl = "http://localhost:3000";
 
 export default function HomePage() {
-  const { data: products, isLoading } = useFetch("/products");
-  const { data: categories, isLoading: loadingCategories } =
-    useFetch("/categories");
+  const products = useSelector((state) => state.product.products);
+  const isLoading = useSelector((state) => state.product.loading);
+  const categories = useSelector((state) => state.category.categories);
+  const loadingCategories = useSelector((state) => state.category.loading);
   const [product, setProduct] = useState({});
   const [isEdit, setIsEdit] = useState(false);
 
-  const generateSlug = (name) => {
-    return name
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-");
-  };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
   const [input, setInput] = useState({
     name: "",
-    slug: "",
     description: "",
     price: 0.0,
     mainImg: "",
@@ -61,7 +64,6 @@ export default function HomePage() {
       });
       setInput({
         name: "",
-        slug: "",
         description: "",
         price: 0.0,
         mainImg: "",
@@ -100,7 +102,6 @@ export default function HomePage() {
       });
       setInput({
         name: "",
-        slug: "",
         description: "",
         price: 0.0,
         mainImg: "",
@@ -115,14 +116,13 @@ export default function HomePage() {
     }
   };
 
-  // data berhasil kedelete tetapi response status 500 ??
   const deleteProduct = async (id) => {
     try {
       await fetch(baseUrl + `/products/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-        }
+        },
       });
     } catch (error) {
       console.log(error);

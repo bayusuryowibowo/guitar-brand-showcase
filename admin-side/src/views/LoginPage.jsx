@@ -18,8 +18,9 @@ export default function LoginPage() {
 
   const getLogin = async () => {
     try {
-      const response = await fetch(baseUrl + "/users", {
-        method: "GET",
+      const response = await fetch(baseUrl + "/login", {
+        method: "POST",
+        body: formLogin
       });
       if (response.ok) {
         const data = await response.json();
@@ -29,7 +30,8 @@ export default function LoginPage() {
             user.password === formLogin.loginPassword
         );
         if (!user) throw new Error("InvalidLogin");
-        localStorage.access_token = Math.random();
+        console.log(response, "<<<< login")
+        localStorage.access_token = 
         setFormLogin({
           loginEmail: "",
           loginPassword: "",
