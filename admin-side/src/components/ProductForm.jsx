@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { postProduct } from "../stores/actions/actionCreator";
+import { postProduct, putProduct } from "../stores/actions/actionCreator";
 import ArrowPath from "./icons/ArrowPath";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductForm({
   isEdit,
@@ -25,13 +26,53 @@ export default function ProductForm({
     imgUrl7: "",
     imgUrl8: "",
     imgUrl9: "",
+    imgId1: "",
+    imgId2: "",
+    imgId3: "",
+    imgId4: "",
+    imgId5: "",
+    imgId6: "",
+    imgId7: "",
+    imgId8: "",
+    imgId9: "",
   });
+
+  const resetInput = () => ({
+    name: "",
+    description: "",
+    price: "",
+    mainImg: "",
+    categoryId: "",
+    imgUrl1: "",
+    imgUrl2: "",
+    imgUrl3: "",
+    imgUrl4: "",
+    imgUrl5: "",
+    imgUrl6: "",
+    imgUrl7: "",
+    imgUrl8: "",
+    imgUrl9: "",
+    imgId1: "",
+    imgId2: "",
+    imgId3: "",
+    imgId4: "",
+    imgId5: "",
+    imgId6: "",
+    imgId7: "",
+    imgId8: "",
+    imgId9: "",
+  });
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (product && product.Images) {
       const images = product.Images.map((value, index) => {
-        return { [`imgUrl${index}`]: value.imgUrl };
+        return {
+          [`imgId${index}`]: value.id,
+          [`imgUrl${index}`]: value.imgUrl,
+        };
       });
       let initialInput = {
         name: product.name,
@@ -60,40 +101,47 @@ export default function ProductForm({
     }
   };
 
+  const processData = () => {
+    const images = [];
+    for (let i = 1; i <= 9; i++) {
+      const imgIdKey = `imgId${i}`;
+      const imgUrlKey = `imgUrl${i}`;
+      if (input[imgUrlKey] && isEdit) {
+        images.push({ id: input[imgIdKey], imgUrl: input[imgUrlKey] });
+      } else {
+        images.push({ imgUrl: input[imgUrlKey] });
+      }
+    }
+    const body = {
+      name: input.name,
+      description: input.description,
+      price: input.price,
+      mainImg: input.mainImg,
+      categoryId: input.categoryId,
+      images,
+    };
+    return body;
+  };
+
   const addProduct = async () => {
     try {
-      const images = [];
-      for (let i = 1; i <= 9; i++) {
-        const imgUrlKey = `imgUrl${i}`;
-        if (input[imgUrlKey]) {
-          images.push({ imgUrl: input[imgUrlKey] });
-        }
-      }
-      const body = {
-        name: input.name,
-        description: input.description,
-        price: input.price,
-        mainImg: input.mainImg,
-        categoryId: input.categoryId,
-        images,
-      };
+      const body = processData();
       const { statusText, status, message } = await dispatch(postProduct(body));
-      setInput({
-        name: "",
-        description: "",
-        price: "",
-        mainImg: "",
-        categoryId: "",
-        imgUrl1: "",
-        imgUrl2: "",
-        imgUrl3: "",
-        imgUrl4: "",
-        imgUrl5: "",
-        imgUrl6: "",
-        imgUrl7: "",
-        imgUrl8: "",
-        imgUrl9: "",
-      });
+      setInput(resetInput());
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const editProduct = async () => {
+    try {
+      const body = processData();
+      const { statusText, status, message } = await dispatch(
+        putProduct(product.id, body)
+      );
+      setInput(resetInput());
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

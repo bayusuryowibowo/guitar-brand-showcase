@@ -18,32 +18,6 @@ export default function HomePage() {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  // const putProduct = async (id) => {
-  //   try {
-  //     await fetch(baseUrl + `/products/${id}`, {
-  //       method: "PUT",
-  //       body: JSON.stringify(input),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         access_token: localStorage.access_token,
-  //       },
-  //     });
-  //     setInput({
-  //       name: "",
-  //       description: "",
-  //       price: 0.0,
-  //       mainImg: "",
-  //       categoryId: "",
-  //       authorId: 1,
-  //       createdAt: new Date(),
-  //       updatedAt: new Date(),
-  //     });
-  //     setIsEdit(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const deleteProduct = async (id) => {
     try {
       await fetch(baseUrl + `/products/${id}`, {

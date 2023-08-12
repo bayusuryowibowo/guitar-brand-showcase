@@ -14,6 +14,8 @@ import {
   POST_PRODUCT_SUCCESS,
   POST_REGISTER_FAILED,
   POST_REGISTER_SUCCESS,
+  PUT_PRODUCT_FAILED,
+  PUT_PRODUCT_SUCCESS,
 } from "./actionType";
 
 const baseUrl = "http://localhost:3000";
@@ -263,6 +265,59 @@ export const postProduct = (input) => {
       return payload;
     } catch (error) {
       const action = postProductFailed(error);
+      dispatch(action);
+      throw error;
+    }
+  };
+};
+
+export const putProductSuccess = (payload) => {
+  return {
+    type: PUT_PRODUCT_SUCCESS,
+    payload,
+  };
+};
+
+export const putProductFailed = (payload) => {
+  return {
+    type: PUT_PRODUCT_FAILED,
+    payload,
+  };
+};
+
+export const putProduct = (id, input) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(baseUrl + `/products/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+          access_token: localStorage.access_token,
+        },
+      });
+      const { message } = await response.json();
+      const payload = {
+        statusText: response.statusText,
+        status: response.status,
+        message,
+      };
+      const action = putProductSuccess(payload);
+      dispatch(action);
+      return payload;
+      // setInput({
+      //   name: "",
+      //   description: "",
+      //   price: 0.0,
+      //   mainImg: "",
+      //   categoryId: "",
+      //   authorId: 1,
+      //   createdAt: new Date(),
+      //   updatedAt: new Date(),
+      // });
+      // setIsEdit(false);
+    } catch (error) {
+      const action = putProductFailed(error);
       dispatch(action);
       throw error;
     }

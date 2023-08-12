@@ -52,14 +52,14 @@ export default function Header() {
               <div className="absolute w-28 z-10 bg-white rounded-lg shadow-lg py-2 mt-16 text-center">
                 <NavLink
                   to={"/register"}
-                  className="block px-4 py-2 account-link hover:text-white"
+                  className="block px-4 py-2 account-link"
                 >
                   Register
                 </NavLink>
                 {isLogin && (
                   <a
                     onClick={handleLogout}
-                    className="block px-4 py-2 account-link hover:text-white cursor-pointer"
+                    className="block px-4 py-2 account-link cursor-pointer"
                   >
                     Logout
                   </a>

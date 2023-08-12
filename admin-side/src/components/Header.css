@@ -1,9 +1,14 @@
-.account-link:hover {
-  background: #3d68ff
+.account-link {
+  color: black;
 }
 
-a.active {
-  background: #1947ee;
+.account-link:not(.active):hover {
+  background: whitesmoke;
+  color: black;
+}
+
+.account-link.active {
   opacity: 1;
-  color: white;
+  color: #3d68ff;
+  font-weight: 600;
 }
