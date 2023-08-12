@@ -24,3 +24,12 @@ export const PUT_PRODUCT_FAILED = "product/putProductFailed";
 
 export const DELETE_PRODUCT_SUCCESS = "product/DeleteProductSuccess";
 export const DELETE_PRODUCT_FAILED = "product/DeleteProductFailed";
+
+export const POST_CATEGORY_SUCCESS = "category/postCategorySuccess";
+export const POST_CATEGORY_FAILED = "category/postCategoryFailed";
+
+export const PUT_CATEGORY_SUCCESS = "category/putCategorySuccess";
+export const PUT_CATEGORY_FAILED = "category/putCategoryFailed";
+
+export const DELETE_CATEGORY_SUCCESS = "category/DeleteCategorySuccess";
+export const DELETE_CATEGORY_FAILED = "category/DeleteCategoryFailed";

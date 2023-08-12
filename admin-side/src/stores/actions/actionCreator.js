@@ -1,4 +1,5 @@
 import {
+  DELETE_CATEGORY_SUCCESS,
   DELETE_PRODUCT_FAILED,
   DELETE_PRODUCT_SUCCESS,
   FETCH_CATEGORIES_FAILED,
@@ -10,12 +11,16 @@ import {
   FETCH_PRODUCTS_FAILED,
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_SUCCESS,
+  POST_CATEGORY_FAILED,
+  POST_CATEGORY_SUCCESS,
   POST_LOGIN_FAILED,
   POST_LOGIN_SUCCESS,
   POST_PRODUCT_FAILED,
   POST_PRODUCT_SUCCESS,
   POST_REGISTER_FAILED,
   POST_REGISTER_SUCCESS,
+  PUT_CATEGORY_FAILED,
+  PUT_CATEGORY_SUCCESS,
   PUT_PRODUCT_FAILED,
   PUT_PRODUCT_SUCCESS,
 } from "./actionType";
@@ -322,7 +327,7 @@ export const deleteProductSuccess = (payload) => {
   };
 };
 
-export const DeleteProductFailed = (payload) => {
+export const deleteProductFailed = (payload) => {
   return {
     type: DELETE_PRODUCT_FAILED,
     payload,
@@ -349,7 +354,132 @@ export const deleteProduct = (id) => {
       dispatch(action);
       return payload;
     } catch (error) {
-      const action = DeleteProductFailed(error);
+      const action = deleteProductFailed(error);
+      dispatch(action);
+      throw error;
+    }
+  };
+};
+
+export const postCategorySuccess = (payload) => {
+  return {
+    type: POST_CATEGORY_SUCCESS,
+    payload,
+  };
+};
+
+export const postCategoryFailed = (payload) => {
+  return {
+    type: POST_CATEGORY_FAILED,
+    payload,
+  };
+};
+
+export const postCategory = (input) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(baseUrl + "/categories", {
+        method: "POST",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+          access_token: localStorage.access_token,
+        },
+      });
+      const { message } = await response.json();
+      const payload = {
+        statusText: response.statusText,
+        status: response.status,
+        message,
+      };
+      const action = postCategorySuccess(payload);
+      dispatch(action);
+      return payload;
+    } catch (error) {
+      const action = postCategoryFailed(error);
+      dispatch(action);
+      throw error;
+    }
+  };
+};
+
+export const putCategorySuccess = (payload) => {
+  return {
+    type: PUT_CATEGORY_SUCCESS,
+    payload,
+  };
+};
+
+export const putCategoryFailed = (payload) => {
+  return {
+    type: PUT_CATEGORY_FAILED,
+    payload,
+  };
+};
+
+export const putCategory = (id, input) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(baseUrl + `/categories/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+          access_token: localStorage.access_token,
+        },
+      });
+      const { message } = await response.json();
+      const payload = {
+        statusText: response.statusText,
+        status: response.status,
+        message,
+      };
+      const action = putCategorySuccess(payload);
+      dispatch(action);
+      return payload;
+    } catch (error) {
+      const action = putCategoryFailed(error);
+      dispatch(action);
+      throw error;
+    }
+  };
+};
+
+export const deleteCategorySuccess = (payload) => {
+  return {
+    type: DELETE_CATEGORY_SUCCESS,
+    payload,
+  };
+};
+
+export const deleteCategoryFailed = (payload) => {
+  return {
+    type: DELETE_PRODUCT_FAILED,
+    payload,
+  };
+};
+
+export const deleteCategory = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(baseUrl + `/categories/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          access_token: localStorage.access_token,
+        },
+      });
+      const { message } = await response.json();
+      const payload = {
+        statusText: response.statusText,
+        status: response.status,
+        message,
+      };
+      const action = deleteCategorySuccess(payload);
+      dispatch(action);
+      return payload;
+    } catch (error) {
+      const action = deleteCategoryFailed(error);
       dispatch(action);
       throw error;
     }
