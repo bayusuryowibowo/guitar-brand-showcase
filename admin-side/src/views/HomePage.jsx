@@ -10,7 +10,6 @@ const baseUrl = "http://localhost:3000";
 export default function HomePage() {
   const products = useSelector((state) => state.product.products);
   const isLoading = useSelector((state) => state.product.loading);
-  const [product, setProduct] = useState({});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,48 +18,31 @@ export default function HomePage() {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const getProduct = async (id) => {
-    try {
-      console.log(id);
-      const response = await fetch(baseUrl + `/products/${id}`, {
-        method: "GET",
-        headers: {
-          access_token: localStorage.access_token,
-        },
-      });
-      const parsedData = await response.json();
-      setProduct(parsedData);
-      setInput(product);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const putProduct = async (id) => {
-    try {
-      await fetch(baseUrl + `/products/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(input),
-        headers: {
-          "Content-Type": "application/json",
-          access_token: localStorage.access_token,
-        },
-      });
-      setInput({
-        name: "",
-        description: "",
-        price: 0.0,
-        mainImg: "",
-        categoryId: "",
-        authorId: 1,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
-      setIsEdit(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const putProduct = async (id) => {
+  //   try {
+  //     await fetch(baseUrl + `/products/${id}`, {
+  //       method: "PUT",
+  //       body: JSON.stringify(input),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         access_token: localStorage.access_token,
+  //       },
+  //     });
+  //     setInput({
+  //       name: "",
+  //       description: "",
+  //       price: 0.0,
+  //       mainImg: "",
+  //       categoryId: "",
+  //       authorId: 1,
+  //       createdAt: new Date(),
+  //       updatedAt: new Date(),
+  //     });
+  //     setIsEdit(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const deleteProduct = async (id) => {
     try {

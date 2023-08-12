@@ -2,6 +2,9 @@ import {
   FETCH_CATEGORIES_FAILED,
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
+  FETCH_DETAIL_PRODUCT_FAILED,
+  FETCH_DETAIL_PRODUCT_REQUEST,
+  FETCH_DETAIL_PRODUCT_SUCCESS,
   FETCH_PRODUCTS_FAILED,
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_SUCCESS,
@@ -50,6 +53,46 @@ export const fetchProducts = () => {
       dispatch(action);
     } catch (error) {
       const action = fetchProductsFailed(error);
+      dispatch(action);
+    }
+  };
+};
+
+export const fetchDetailProductRequest = () => {
+  return {
+    type: FETCH_DETAIL_PRODUCT_REQUEST,
+  };
+};
+
+export const fetchDetailProductSuccess = (payload) => {
+  return {
+    type: FETCH_DETAIL_PRODUCT_SUCCESS,
+    payload,
+  };
+};
+
+export const fetchDetailProductFailed = (payload) => {
+  return {
+    type: FETCH_DETAIL_PRODUCT_FAILED,
+    payload,
+  };
+};
+
+export const fetchDetailProduct = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch(fetchDetailProductRequest());
+      const response = await fetch(baseUrl + `/products/${id}`, {
+        method: "GET",
+        headers: {
+          access_token: localStorage.access_token,
+        },
+      });
+      const parsedData = await response.json();
+      const action = fetchDetailProductSuccess(parsedData);
+      dispatch(action);
+    } catch (error) {
+      const action = fetchDetailProductFailed(error);
       dispatch(action);
     }
   };
@@ -187,16 +230,16 @@ export const postRegister = (input) => {
 export const postProductSuccess = (payload) => {
   return {
     type: POST_PRODUCT_SUCCESS,
-    payload
-  }
-}
+    payload,
+  };
+};
 
 export const postProductFailed = (payload) => {
   return {
     type: POST_PRODUCT_FAILED,
-    payload
-  }
-}
+    payload,
+  };
+};
 
 export const postProduct = (input) => {
   return async (dispatch) => {
@@ -215,12 +258,12 @@ export const postProduct = (input) => {
         status: response.status,
         message,
       };
-      const action = postProductSuccess(payload)
-      dispatch(action)
+      const action = postProductSuccess(payload);
+      dispatch(action);
       return payload;
     } catch (error) {
-      const action = postProductFailed(error)
-      dispatch(action)
+      const action = postProductFailed(error);
+      dispatch(action);
       throw error;
     }
   };

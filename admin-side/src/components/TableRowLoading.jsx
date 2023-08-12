@@ -22,7 +22,7 @@ export default function TableRowLoading() {
       <td className="px-6 py-4">Loading...</td>
       <td className="px-6 py-4">Loading...</td>
       <td className="flex items-center px-6 py-4 space-x-3">
-        <ArrowPath dynamicClassName=" stroke-blue-600 dark:stroke-blue-500" />
+        <ArrowPath dynamicClassName=" stroke-green-600 dark:stroke-green-500" />
         <ArrowPath dynamicClassName=" stroke-red-600 dark:stroke-red-500" />
       </td>
     </tr>

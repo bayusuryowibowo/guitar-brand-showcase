@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { postProduct } from "../stores/actions/actionCreator";
+import ArrowPath from "./icons/ArrowPath";
 
-export default function ProductForm({ isEdit, categories, loadingCategories }) {
+export default function ProductForm({
+  isEdit,
+  categories,
+  loadingCategories,
+  product,
+  isLoading,
+}) {
   const [input, setInput] = useState({
     name: "",
     description: "",
@@ -20,6 +27,25 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
     imgUrl9: "",
   });
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (product && product.Images) {
+      const images = product.Images.map((value, index) => {
+        return { [`imgUrl${index}`]: value.imgUrl };
+      });
+      let initialInput = {
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        mainImg: product.mainImg,
+        categoryId: product.categoryId,
+      };
+      images.forEach((image) => {
+        initialInput = { ...initialInput, ...image };
+      });
+      setInput(initialInput);
+    }
+  }, [product]);
 
   const onChangeInput = (event) => {
     const value = event.target.value;
@@ -75,14 +101,30 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    isEdit === true ? putProduct(product.id) : addProduct();
+    isEdit === true ? editProduct(product.id) : addProduct();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-10 bg-white rounded shadow-xl">
-      <h1 className="w-full text-3xl text-black pb-6">
-        {isEdit ? "Edit Product" : "Add Product"}
-      </h1>
+    <form
+      onSubmit={handleSubmit}
+      className={`p-10 bg-white rounded shadow-xl ${
+        isEdit && isLoading ? "animate-pulse" : ""
+      }`}
+    >
+      {isEdit && isLoading ? (
+        <div className="flex items-center">
+          <div className="w-10 h-10">
+            <ArrowPath />
+          </div>
+          <div className="ml-3">
+            <h1 className="w-full text-3xl text-black">Processing...</h1>
+          </div>
+        </div>
+      ) : (
+        <h1 className="w-full text-3xl text-black pb-6">
+          {isEdit ? "Edit Product" : "Add Product"}
+        </h1>
+      )}
       <div className="grid md:grid-cols-2 md:gap-6">
         <div className="relative z-0 w-full mb-6 group">
           <input
@@ -99,7 +141,11 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="name"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Product Name
+            {isEdit
+              ? isLoading
+                ? "Loading..."
+                : "Product Name"
+              : "Product Name"}
           </label>
         </div>
         <div className="relative z-0 w-full mb-6 group">
@@ -118,7 +164,7 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="price"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Price
+            {isEdit ? (isLoading ? "Loading..." : "Price") : "Price"}
           </label>
         </div>
       </div>
@@ -138,7 +184,7 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="mainImg"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Main Image
+            {isEdit ? (isLoading ? "Loading..." : "Main Image") : "Main Image"}
           </label>
         </div>
         <div className="relative z-0 w-full mb-6 group">
@@ -173,7 +219,7 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="categoryId"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Category
+            {isEdit ? (isLoading ? "Loading..." : "Category") : "Category"}
           </label>
         </div>
       </div>
@@ -192,7 +238,7 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
           htmlFor="description"
           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
         >
-          Description
+          {isEdit ? (isLoading ? "Loading..." : "Description") : "Description"}
         </label>
       </div>
       <div className="grid md:grid-cols-3 md:gap-6">
@@ -211,7 +257,11 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="imgUrl1"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Additional Image
+            {isEdit
+              ? isLoading
+                ? "Loading..."
+                : "Additional Image"
+              : "Additional Image"}
           </label>
         </div>
         <div className="relative z-0 w-full mb-6 group">
@@ -228,7 +278,11 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="imgUrl2"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Additional Image
+            {isEdit
+              ? isLoading
+                ? "Loading..."
+                : "Additional Image"
+              : "Additional Image"}
           </label>
         </div>
         <div className="relative z-0 w-full mb-6 group">
@@ -245,7 +299,11 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="imgUrl3"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Additional Image
+            {isEdit
+              ? isLoading
+                ? "Loading..."
+                : "Additional Image"
+              : "Additional Image"}
           </label>
         </div>
       </div>
@@ -264,7 +322,11 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="imgUrl4"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Additional Image
+            {isEdit
+              ? isLoading
+                ? "Loading..."
+                : "Additional Image"
+              : "Additional Image"}
           </label>
         </div>
         <div className="relative z-0 w-full mb-6 group">
@@ -281,7 +343,11 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="imgUrl5"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Additional Image
+            {isEdit
+              ? isLoading
+                ? "Loading..."
+                : "Additional Image"
+              : "Additional Image"}
           </label>
         </div>
         <div className="relative z-0 w-full mb-6 group">
@@ -298,7 +364,11 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="imgUrl6"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Additional Image
+            {isEdit
+              ? isLoading
+                ? "Loading..."
+                : "Additional Image"
+              : "Additional Image"}
           </label>
         </div>
       </div>
@@ -317,7 +387,11 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="imgUrl7"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Additional Image
+            {isEdit
+              ? isLoading
+                ? "Loading..."
+                : "Additional Image"
+              : "Additional Image"}
           </label>
         </div>
         <div className="relative z-0 w-full mb-6 group">
@@ -334,7 +408,11 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="imgUrl8"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Additional Image
+            {isEdit
+              ? isLoading
+                ? "Loading..."
+                : "Additional Image"
+              : "Additional Image"}
           </label>
         </div>
         <div className="relative z-0 w-full mb-6 group">
@@ -351,7 +429,11 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
             htmlFor="imgUrl9"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            Additional Image
+            {isEdit
+              ? isLoading
+                ? "Loading..."
+                : "Additional Image"
+              : "Additional Image"}
           </label>
         </div>
       </div>
@@ -362,78 +444,5 @@ export default function ProductForm({ isEdit, categories, loadingCategories }) {
         {isEdit ? "Update" : "Submit"}
       </button>
     </form>
-    // <form onSubmit={handleSubmit}>
-    //   <div>
-    //     <label htmlFor="name">Name</label>
-    //     <input
-    //       onChange={onChangeInput}
-    //       value={input.name}
-    //       type="text"
-    //       name="name"
-    //       className=" form-input"
-    //     />
-    //   </div>
-    //   <div>
-    //     <label htmlFor="description">Description</label>
-    //     <textarea
-    //       onChange={onChangeInput}
-    //       value={input.description}
-    //       name="description"
-    //       cols="30"
-    //       rows="10"
-    //       className=" form-textarea"
-    //     ></textarea>
-    //   </div>
-    //   <div>
-    //     <label htmlFor="price">Price</label>
-    //     <input
-    //       onChange={onChangeInput}
-    //       value={input.price}
-    //       type="number"
-    //       step="0.01"
-    //       name="price"
-    //       className=" form-input"
-    //     />
-    //   </div>
-    //   <div>
-    //     <label htmlFor="mainImg">Main Image</label>
-    //     <input
-    //       onChange={onChangeInput}
-    //       value={input.mainImg}
-    //       type="text"
-    //       name="mainImg"
-    //       className=" form-input"
-    //     />
-    //   </div>
-    //   <div>
-    //     <label htmlFor="categoryId">Category</label>
-    //     <select
-    //       onChange={onChangeInput}
-    //       value={input.categoryId}
-    //       name="categoryId"
-    //       className="form-select w-1/5 rounded-md focus:ring-sky-400 focus:border-sky-400 text-black"
-    //     >
-    //       {loadingCategories ? (
-    //         <>
-    //           <option>Loading...</option>
-    //         </>
-    //       ) : (
-    //         <>
-    //           <option disabled>-- Select Category --</option>
-    //           {categories.map((category) => {
-    //             return (
-    //               <option value={category.id} key={category.id}>
-    //                 {category.name}
-    //               </option>
-    //             );
-    //           })}
-    //         </>
-    //       )}
-    //     </select>
-    //   </div>
-    //   <div>
-    //     <button type="submit">{isEdit === true ? "Edit" : "Add"}</button>
-    //   </div>
-    // </form>
   );
 }
