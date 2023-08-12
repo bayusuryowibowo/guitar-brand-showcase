@@ -95,6 +95,7 @@ export default function HomePage() {
             ) : (
               <TableRow
                 data={products}
+                isProduct={true}
                 onEditClick={handleEditClick}
                 onDeleteClick={handleDeleteClick}
               />
