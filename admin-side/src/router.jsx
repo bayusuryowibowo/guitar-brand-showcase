@@ -1,8 +1,11 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
 import HomePage from "./views/HomePage";
-import RegisterPage from "./views/RegisterPage";
 import LoginPage from "./views/LoginPage";
 import Layout from "./components/Layout";
+import CategoryPage from "./views/CategoryPage";
+import RegisterPage from "./views/RegisterPage";
+import AddProductPage from "./views/AddProductPage";
+import EditProductPage from "./views/EditProductPage";
 
 const router = createBrowserRouter([
   {
@@ -17,16 +20,23 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
       },
+      {
+        path: "/register",
+        element: <RegisterPage />,
+      },
+      {
+        path: "/categories",
+        element: <CategoryPage />,
+      },
+      {
+        path: "/addproduct",
+        element: <AddProductPage />,
+      },
+      {
+        path: "/editproduct/:id",
+        element: <EditProductPage />,
+      },
     ],
-  },
-  {
-    path: "/register",
-    element: <RegisterPage />,
-    loader: () => {
-      const access_token = localStorage.getItem("access_token");
-      if (access_token) throw redirect("/");
-      return null;
-    },
   },
   {
     path: "/login",

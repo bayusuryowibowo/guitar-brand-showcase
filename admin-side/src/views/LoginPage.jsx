@@ -1,14 +1,15 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-const baseUrl = "http://localhost:3000";
+import { postLogin } from "../stores/actions/actionCreator";
 
 export default function LoginPage() {
   const [formLogin, setFormLogin] = useState({
-    loginEmail: "",
-    loginPassword: "",
+    email: "",
+    password: "",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onLoginInput = (event) => {
     const value = event.target.value;
@@ -16,36 +17,18 @@ export default function LoginPage() {
     setFormLogin({ ...formLogin, [eventLoginInput]: value });
   };
 
-  const getLogin = async () => {
+  const handleSubmit = async (event) => {
     try {
-      const response = await fetch(baseUrl + "/login", {
-        method: "POST",
-        body: formLogin
+      event.preventDefault();
+      await dispatch(postLogin(formLogin));
+      setFormLogin({
+        email: "",
+        password: "",
       });
-      if (response.ok) {
-        const data = await response.json();
-        const user = data.find(
-          (user) =>
-            user.email === formLogin.loginEmail &&
-            user.password === formLogin.loginPassword
-        );
-        if (!user) throw new Error("InvalidLogin");
-        console.log(response, "<<<< login")
-        localStorage.access_token = 
-        setFormLogin({
-          loginEmail: "",
-          loginPassword: "",
-        });
-        navigate("/");
-      }
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    getLogin();
   };
 
   return (
@@ -55,16 +38,16 @@ export default function LoginPage() {
     >
       <div className="mb-6">
         <label
-          htmlFor="loginEmail"
+          htmlFor="email"
           className="block mb-2 text-base font-medium text-gray-900"
         >
           Your email
         </label>
         <input
           onChange={onLoginInput}
-          value={formLogin.loginEmail}
+          value={formLogin.email}
           type="email"
-          name="loginEmail"
+          name="email"
           className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
           placeholder="bayu@mail.com"
           required
@@ -72,16 +55,16 @@ export default function LoginPage() {
       </div>
       <div className="mb-6">
         <label
-          htmlFor="loginPassword"
+          htmlFor="password"
           className="block mb-2 text-base font-medium text-gray-900"
         >
           Your password
         </label>
         <input
           onChange={onLoginInput}
-          value={formLogin.loginPassword}
+          value={formLogin.password}
           type="password"
-          name="loginPassword"
+          name="password"
           className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
           placeholder="must be at least 5 characters"
           required

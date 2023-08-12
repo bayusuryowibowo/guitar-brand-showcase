@@ -75,6 +75,14 @@ class adminController {
   static async readProducts(req, res, next) {
     try {
       const products = await Product.findAll({
+        include: [
+          {
+            model: User,
+            attributes: { exclude: ["password"] },
+          },
+          Category,
+          Image,
+        ],
         order: [["id", "ASC"]],
       });
       res.status(200).json(products);
@@ -118,7 +126,21 @@ class adminController {
           },
         }
       );
-      await Image.bulkUpdate(images, { transaction: t });
+      await Promise.all(
+        images.map(async (image) => {
+          await Image.update(
+            {
+              imgUrl: image.imgUrl,
+            },
+            {
+              transaction: t,
+              where: {
+                id: image.id,
+              },
+            }
+          );
+        })
+      );
       await t.commit();
       res.status(200).json({ message: "Product edited" });
     } catch (error) {
@@ -149,7 +171,7 @@ class adminController {
 
   static async readCategories(req, res, next) {
     try {
-      const categories = await Category.findAll();
+      const categories = await Category.findAll({});
       res.status(200).json(categories);
     } catch (error) {
       next(error);

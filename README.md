@@ -91,7 +91,7 @@ Next, saya akan melengkapi client yang masih kurang, kemudian mencoba wiring den
 
 Target:
 
-- [ ] LC Simulation
+- [x] LC Simulation
 - [ ] Practice, Practice, Practice
 
 **Report:**
