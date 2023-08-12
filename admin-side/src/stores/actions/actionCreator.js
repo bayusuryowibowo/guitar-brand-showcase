@@ -7,6 +7,8 @@ import {
   FETCH_PRODUCTS_SUCCESS,
   POST_LOGIN_FAILED,
   POST_LOGIN_SUCCESS,
+  POST_PRODUCT_FAILED,
+  POST_PRODUCT_SUCCESS,
   POST_REGISTER_FAILED,
   POST_REGISTER_SUCCESS,
 } from "./actionType";
@@ -177,6 +179,48 @@ export const postRegister = (input) => {
         message: error.response.message,
       };
       dispatch(postRegisterFailed(payload));
+      throw error;
+    }
+  };
+};
+
+export const postProductSuccess = (payload) => {
+  return {
+    type: POST_PRODUCT_SUCCESS,
+    payload
+  }
+}
+
+export const postProductFailed = (payload) => {
+  return {
+    type: POST_PRODUCT_FAILED,
+    payload
+  }
+}
+
+export const postProduct = (input) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(baseUrl + "/products", {
+        method: "POST",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+          access_token: localStorage.access_token,
+        },
+      });
+      const { message } = await response.json();
+      const payload = {
+        statusText: response.statusText,
+        status: response.status,
+        message,
+      };
+      const action = postProductSuccess(payload)
+      dispatch(action)
+      return payload;
+    } catch (error) {
+      const action = postProductFailed(error)
+      dispatch(action)
       throw error;
     }
   };

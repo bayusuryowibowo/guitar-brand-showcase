@@ -12,3 +12,6 @@ export const POST_LOGIN_FAILED = "login/postLoginFailed";
 
 export const POST_REGISTER_SUCCESS = "register/postRegisterSuccess";
 export const POST_REGISTER_FAILED = "register/postRegisterFailed";
+
+export const POST_PRODUCT_SUCCESS = "product/postProductRequest";
+export const POST_PRODUCT_FAILED = "product/postFailedRequest";

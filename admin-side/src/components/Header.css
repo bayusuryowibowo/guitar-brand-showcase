@@ -1,0 +1,9 @@
+.account-link:hover {
+  background: #3d68ff
+}
+
+a.active {
+  background: #1947ee;
+  opacity: 1;
+  color: white;
+}
