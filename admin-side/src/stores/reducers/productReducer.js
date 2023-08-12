@@ -1,4 +1,6 @@
 import {
+  DELETE_PRODUCT_FAILED,
+  DELETE_PRODUCT_SUCCESS,
   FETCH_DETAIL_PRODUCT_FAILED,
   FETCH_DETAIL_PRODUCT_REQUEST,
   FETCH_DETAIL_PRODUCT_SUCCESS,
@@ -7,6 +9,8 @@ import {
   FETCH_PRODUCTS_SUCCESS,
   POST_PRODUCT_FAILED,
   POST_PRODUCT_SUCCESS,
+  PUT_PRODUCT_FAILED,
+  PUT_PRODUCT_SUCCESS,
 } from "../actions/actionType";
 
 const initialState = {
@@ -26,7 +30,7 @@ export default function productReducer(state = initialState, action) {
     case FETCH_PRODUCTS_FAILED:
       return { ...state, loading: false, error: action.payload };
     case FETCH_DETAIL_PRODUCT_REQUEST:
-      return { ...state, loading: true }
+      return { ...state, loading: true };
     case FETCH_DETAIL_PRODUCT_SUCCESS:
       return { ...state, loading: false, product: action.payload };
     case FETCH_DETAIL_PRODUCT_FAILED:
@@ -34,6 +38,14 @@ export default function productReducer(state = initialState, action) {
     case POST_PRODUCT_SUCCESS:
       return { ...state, success: action.payload };
     case POST_PRODUCT_FAILED:
+      return { ...state, error: action.payload };
+    case PUT_PRODUCT_SUCCESS:
+      return { ...state, success: action.payload };
+    case PUT_PRODUCT_FAILED:
+      return { ...state, error: action.payload };
+    case DELETE_PRODUCT_SUCCESS:
+      return { ...state, success: action.payload };
+    case DELETE_PRODUCT_FAILED:
       return { ...state, error: action.payload };
     default:
       return state;

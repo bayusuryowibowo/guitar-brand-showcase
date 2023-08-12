@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../stores/actions/actionCreator";
+import { deleteProduct, fetchProducts } from "../stores/actions/actionCreator";
 import { useDispatch, useSelector } from "react-redux";
 import TableRow from "../components/TableRow";
 import TableRowLoading from "../components/TableRowLoading";
@@ -18,25 +18,17 @@ export default function HomePage() {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const deleteProduct = async (id) => {
-    try {
-      await fetch(baseUrl + `/products/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleEditClick = (id) => {
     navigate(`/editproduct/${id}`);
   };
 
-  const handleDeleteClick = (id) => {
-    deleteProduct(id);
+  const handleDeleteClick = async (id) => {
+    try {
+      const { statusText, status, message } = await dispatch(deleteProduct(id));
+      dispatch(fetchProducts());
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

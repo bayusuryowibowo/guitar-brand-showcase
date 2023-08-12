@@ -21,3 +21,6 @@ export const POST_PRODUCT_FAILED = "product/postProductFailed";
 
 export const PUT_PRODUCT_SUCCESS = "product/putProductSuccess";
 export const PUT_PRODUCT_FAILED = "product/putProductFailed";
+
+export const DELETE_PRODUCT_SUCCESS = "product/DeleteProductSuccess";
+export const DELETE_PRODUCT_FAILED = "product/DeleteProductFailed";
