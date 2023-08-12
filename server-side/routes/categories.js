@@ -4,6 +4,7 @@ const router = express.Router();
 
 router
   .post("", adminController.addCategory)
-  .get("", adminController.readCategories);
+  .get("", adminController.readCategories)
+  .put("", adminController.editCategory);
 
 module.exports = router;

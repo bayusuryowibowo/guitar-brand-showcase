@@ -177,6 +177,34 @@ class adminController {
       next(error);
     }
   }
+
+  static async editCategory(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { name } = req.body;
+      await Category.update(
+        { name },
+        {
+          where: {
+            id: id,
+          },
+        }
+      );
+      res.status(200).json({ message: "Category edited" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deleteCategory(req, res, next) {
+    try {
+      const { id } = req.params;
+      await Category.destroy({ where: { id: id } });
+      res.status(200).json({ message: "Category deleted" });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = adminController;
