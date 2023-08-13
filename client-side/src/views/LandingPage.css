@@ -1,0 +1,20 @@
+#price {
+  color: #d71920;
+}
+
+#compare {
+  bottom: 2px;
+  margin: 10px 0;
+}
+
+#button-compare {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 3px 10px 2px;
+  line-height: 1.5;
+}
+
+#button-compare:hover {
+  color: #2e68a9;
+  border: 1px solid #2e68a9;
+}
