@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postRegister } from "../stores/actions/actionCreator";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function RegisterPage() {
   const [formRegister, setFormRegister] = useState({
@@ -22,7 +23,7 @@ export default function RegisterPage() {
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
-      await dispatch(postRegister(formRegister));
+      const { statusText, status, message } = await dispatch(postRegister(formRegister));
       setFormRegister({
         email: "",
         username: "",
@@ -30,13 +31,34 @@ export default function RegisterPage() {
         phoneNumber: "",
         address: "",
       });
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (error) {
-      console.log(error);
+      const { statusText, status, message } = error;
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
   return (
     <>
+      <ToastContainer />
       <div className="w-full">
         <div className="leading-loose">
           <form

@@ -4,6 +4,9 @@ import {
   FETCH_CATEGORIES_FAILED,
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
+  FETCH_CATEGORY_FAILED,
+  FETCH_CATEGORY_REQUEST,
+  FETCH_CATEGORY_SUCCESS,
   POST_CATEGORY_FAILED,
   POST_CATEGORY_SUCCESS,
   PUT_CATEGORY_FAILED,
@@ -12,6 +15,7 @@ import {
 
 const initialState = {
   categories: [],
+  category: {},
   loading: false,
   success: null,
   error: null,
@@ -29,6 +33,12 @@ export default function categoryReducer(state = initialState, action) {
       return { ...state, success: action.payload };
     case POST_CATEGORY_FAILED:
       return { ...state, error: action.payload };
+    case FETCH_CATEGORY_REQUEST:
+      return { ...state, loading: true };
+    case FETCH_CATEGORY_SUCCESS:
+      return { ...state, loading: false, category: action.payload };
+    case FETCH_CATEGORY_FAILED:
+      return { ...state, loading: false, error: action.payload };
     case PUT_CATEGORY_SUCCESS:
       return { ...state, success: action.payload };
     case PUT_CATEGORY_FAILED:

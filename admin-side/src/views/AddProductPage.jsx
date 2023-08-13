@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductForm from "../components/ProductForm";
 import { useEffect } from "react";
 import { fetchCategories } from "../stores/actions/actionCreator";
+import { ToastContainer } from "react-toastify";
 
 export default function AddProductPage() {
   const categories = useSelector((state) => state.category.categories);
@@ -14,14 +15,17 @@ export default function AddProductPage() {
   }, [dispatch]);
 
   return (
-    <div className="w-full">
-      <div className="leading-loose">
-        <ProductForm
-          isEdit={false}
-          categories={categories}
-          loadingCategories={loadingCategories}
-        />
+    <>
+      <ToastContainer />
+      <div className="w-full">
+        <div className="leading-loose">
+          <ProductForm
+            isEdit={false}
+            categories={categories}
+            loadingCategories={loadingCategories}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

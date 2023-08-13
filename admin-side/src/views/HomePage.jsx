@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { deleteProduct, fetchProducts } from "../stores/actions/actionCreator";
 import { useDispatch, useSelector } from "react-redux";
 import TableRow from "../components/TableRow";
 import TableRowLoading from "../components/TableRowLoading";
 import { useNavigate } from "react-router-dom";
-
-const baseUrl = "http://localhost:3000";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function HomePage() {
   const products = useSelector((state) => state.product.products);
@@ -25,14 +24,35 @@ export default function HomePage() {
   const handleDeleteClick = async (id) => {
     try {
       const { statusText, status, message } = await dispatch(deleteProduct(id));
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       dispatch(fetchProducts());
     } catch (error) {
-      console.log(error);
+      const { statusText, status, message } = error;
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
   return (
     <>
+      <ToastContainer />
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="min-w-full leading-normal w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

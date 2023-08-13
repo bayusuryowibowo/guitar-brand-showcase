@@ -171,8 +171,17 @@ class adminController {
 
   static async readCategories(req, res, next) {
     try {
-      const categories = await Category.findAll({});
+      const categories = await Category.findAll();
       res.status(200).json(categories);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async readCategoryById(req, res, next) {
+    try {
+      const category = await Category.findByPk(req.params.id);
+      res.status(200).json(category);
     } catch (error) {
       next(error);
     }

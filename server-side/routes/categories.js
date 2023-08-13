@@ -5,6 +5,8 @@ const router = express.Router();
 router
   .post("", adminController.addCategory)
   .get("", adminController.readCategories)
-  .put("", adminController.editCategory);
+  .get("/:id", adminController.readCategoryById)
+  .put("/:id", adminController.editCategory)
+  .delete("/:id", adminController.deleteCategory);
 
 module.exports = router;
