@@ -1,4 +1,4 @@
-const { Category, Product, Image } = require("../models");
+const { Category, Product, Image, User } = require("../models");
 
 class userController {
   static async readProducts(req, res, next) {
