@@ -28,7 +28,7 @@ import {
   PUT_PRODUCT_SUCCESS,
 } from "./actionType";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://sweetwater.bayusuryowibowo.xyz";
 
 export const fetchProductsRequest = () => {
   return {
