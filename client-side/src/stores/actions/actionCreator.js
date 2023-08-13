@@ -8,7 +8,7 @@ import {
   FETCH_PRODUCTS_SUCCESS,
 } from "./actionType";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://sweetwater.bayusuryowibowo.xyz/pub";
 
 export const fetchProductsRequest = () => {
   return {
