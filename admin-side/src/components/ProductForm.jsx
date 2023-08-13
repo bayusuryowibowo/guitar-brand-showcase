@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { postProduct, putProduct } from "../stores/actions/actionCreator";
 import ArrowPath from "./icons/ArrowPath";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function ProductForm({
   isEdit,
@@ -70,8 +71,8 @@ export default function ProductForm({
     if (product && product.Images) {
       const images = product.Images.map((value, index) => {
         return {
-          [`imgId${index}`]: value.id,
-          [`imgUrl${index}`]: value.imgUrl,
+          [`imgId${index + 1}`]: value.id,
+          [`imgUrl${index + 1}`]: value.imgUrl,
         };
       });
       let initialInput = {
@@ -106,9 +107,9 @@ export default function ProductForm({
     for (let i = 1; i <= 9; i++) {
       const imgIdKey = `imgId${i}`;
       const imgUrlKey = `imgUrl${i}`;
-      if (input[imgUrlKey] && isEdit) {
+      if (input[imgUrlKey] && isEdit && input[imgUrlKey] !== "") {
         images.push({ id: input[imgIdKey], imgUrl: input[imgUrlKey] });
-      } else {
+      } else if (input[imgUrlKey] !== "") {
         images.push({ imgUrl: input[imgUrlKey] });
       }
     }
@@ -127,10 +128,32 @@ export default function ProductForm({
     try {
       const body = processData();
       const { statusText, status, message } = await dispatch(postProduct(body));
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       setInput(resetInput());
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } catch (error) {
-      console.log(error);
+      const { statusText, status, message } = error;
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -140,10 +163,32 @@ export default function ProductForm({
       const { statusText, status, message } = await dispatch(
         putProduct(product.id, body)
       );
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       setInput(resetInput());
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } catch (error) {
-      console.log(error);
+      const { statusText, status, message } = error;
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 

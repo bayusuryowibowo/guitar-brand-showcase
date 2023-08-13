@@ -4,6 +4,14 @@ class userController {
   static async readProducts(req, res, next) {
     try {
       const products = await Product.findAll({
+        include: [
+          {
+            model: User,
+            attributes: { exclude: ["password"] },
+          },
+          Category,
+          Image,
+        ],
         order: [["id", "ASC"]],
       });
       res.status(200).json(products);
@@ -29,6 +37,15 @@ class userController {
     try {
       const categories = await Category.findAll();
       res.status(200).json(categories);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async readCategoryById(req, res, next) {
+    try {
+      const category = await Category.findByPk(req.params.id);
+      res.status(200).json(category);
     } catch (error) {
       next(error);
     }

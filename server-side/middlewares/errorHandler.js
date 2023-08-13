@@ -34,6 +34,9 @@ const errorHandler = (err, req, res, next) => {
       code = 404;
       message = "Data not found";
       break;
+    case "Forbidden":
+      code = 403;
+      message = "Not allowed";
     default:
       break;
   }

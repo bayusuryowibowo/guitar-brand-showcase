@@ -6,6 +6,7 @@ import {
   fetchDetailProduct,
 } from "../stores/actions/actionCreator";
 import { useParams } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 export default function EditProductPage() {
   const dispatch = useDispatch();
@@ -22,6 +23,8 @@ export default function EditProductPage() {
   }, [dispatch, id]);
 
   return (
+    <>
+    <ToastContainer />
     <div className="w-full">
       <div className="leading-loose">
         <ProductForm
@@ -33,5 +36,6 @@ export default function EditProductPage() {
         />
       </div>
     </div>
+    </>
   );
 }
