@@ -15,9 +15,7 @@ export default function DetailPage() {
     dispatch(fetchDetailProduct(id))
     dispatch(fetchImage(id))
   }, [dispatch, id])
-
-  console.log(product)
-  console.log(image)
+  
   return (
     <>
     
