@@ -1,44 +1,26 @@
-import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import { FlatList, ScrollView, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ProductListScreen from "./screens/ProductListScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
-import MyCard from "./components/MyCard";
 import styles from "./style";
+import { StatusBar } from "expo-status-bar";
+import DetailProductScreen from "./screens/DetailProductScreen";
 
-const baseUrl = "https://sweetwater.bayusuryowibowo.xyz/pub";
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [products, setProducts] = useState([]);
-
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch(baseUrl + "/products", {
-        method: "GET",
-      });
-      if (!response.ok) throw response;
-      const data = await response.json();
-      setProducts(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.cardScrollView}>
-        <View style={styles.cardContainer}>
-          {products.map((item) => {
-            return <MyCard key={item.id} item={item} />;
-          })}
-          {products.map((item) => {
-            return <MyCard key={item.id} item={item} />;
-          })}
-        </View>
-      </ScrollView>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="ProductList"
+            component={ProductListScreen}
+            options={{ headerTitle: "Guitar List", headerTitleAlign: "center" }}
+          />
+          <Stack.Screen name="DetailProduct" component={DetailProductScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
       <StatusBar style="auto" />
     </SafeAreaView>
   );

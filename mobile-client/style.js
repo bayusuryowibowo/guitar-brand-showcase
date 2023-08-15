@@ -2,14 +2,14 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
+    flex: 1
   },
   cardScrollView: {
     backgroundColor: "gray",
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
   cardContainer: {
+    flex: 1,
     flexDirection: "column",
     gap: 5,
   },

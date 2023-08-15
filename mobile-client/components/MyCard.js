@@ -1,8 +1,5 @@
 import { Image, Text, View } from "react-native";
 import styles from "../style";
-// import { Avatar, Card } from "react-native-paper";
-
-// const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
 export default function MyCard({ item }) {
   return (
@@ -13,13 +10,5 @@ export default function MyCard({ item }) {
         <Text style={styles.card_text_price}>${item.price}</Text>
       </View>
     </View>
-    // <Card>
-    //   <Card.Cover source={{ uri: `${item.mainImg}` }} />
-    //   <Card.Title
-    //     title={item.name}
-    //     subtitle={item.price}
-    //     left={LeftContent}
-    //   />
-    // </Card>
   );
 }
