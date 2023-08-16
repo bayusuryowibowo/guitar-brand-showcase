@@ -7,11 +7,15 @@ const app = express();
 const port = process.env.PORT || 3000;
 const cors = require("cors");
 const { run } = require("./config/mongodb-connection");
+const router = require("./routes");
+const errorHandler = require("./middlewares/errorHandler");
 
 app
   .use(cors())
   .use(express.urlencoded({ extended: true }))
-  .use(express.json());
+  .use(express.json())
+  .use(router)
+  .use(errorHandler);
 
 run().then((db) => {
   app.listen(port, () => {

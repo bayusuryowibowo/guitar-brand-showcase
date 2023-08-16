@@ -21,7 +21,7 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
-    const db = await client.db("sweetwater").command({ ping: 1 });
+    const db = await client.db("sweetwater");
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
