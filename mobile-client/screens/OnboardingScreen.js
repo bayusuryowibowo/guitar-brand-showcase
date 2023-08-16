@@ -12,7 +12,7 @@ const { height, width } = Dimensions.get("screen");
 
 export default function OnboardingScreen({ navigation }) {
   const getStartClick = () => {
-    navigation.navigate("ProductList")
+    navigation.replace("ProductList")
   } 
 
   return (

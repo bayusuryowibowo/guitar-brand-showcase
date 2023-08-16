@@ -26,6 +26,7 @@ export default function App() {
             headerTitle: "Home",
             headerShown: true,
             headerTitleAlign: "center",
+            headerBackButtonMenuEnabled: false
           }}
         />
         <Stack.Screen name="DetailProduct" component={DetailProductScreen} />

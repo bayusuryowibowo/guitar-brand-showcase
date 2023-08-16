@@ -31,10 +31,10 @@ export default function ProductListScreen({ navigation }) {
   return (
     // <SafeAreaView style={styles.container}>
     <View style={styles.container}>
-      <ImageBackground
+      {/* <ImageBackground
         source={Images.Onboarding}
         style={{ height, width, position: "absolute" }}
-      />
+      /> */}
       <View style={styles.cardContainer}>
         <FlatList
           style={styles.cardScrollView}

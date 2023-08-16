@@ -29,10 +29,10 @@ export default function DetailProductScreen({ route }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
+      {/* <ImageBackground
         source={Images.Onboarding}
         style={{ height, width, position: "absolute" }}
-      />
+      /> */}
       <View style={styles.container}>
         <View style={styles.container}>
           {/* {product.Images.map((el) => (
