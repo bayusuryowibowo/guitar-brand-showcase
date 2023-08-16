@@ -19,10 +19,10 @@ Target:
 
 - [x] Memahami `react-native` dan `expo`
 - [x] Install `expo-cli` & `expo init` & setup project mobile
-- [ ] Mencoba component Text, View, Image, StyleSheet, Button, ScrollView, FlatList
+- [x] Mencoba component Text, View, Image, StyleSheet, Button, ScrollView, FlatList
 - [x] Mencoba useState, useEffect dalam react-native
 - [x] Hit API server yang sudah dibuat untuk mendapatkan data
-- [ ] Mengetahui bahwa redux & redux-thunk bisa diimplementasi di react-native
+- [x] Mengetahui bahwa redux & redux-thunk bisa diimplementasi di react-native
 - [x] Memahami `react-native-navigation`
 - [x] Memahami Stack Navigation & Tab Navigation
 - [ ] Membuat min 2 Screen (Home, Detail)
@@ -35,8 +35,8 @@ Target:
 
 Target:
 
-- [ ] Memahami React Native Gesture Handler
-- [ ] Memahami NoSQL: Mongodb
+- [x] Memahami React Native Gesture Handler
+- [x] Memahami NoSQL: Mongodb
 - [ ] Membuat service users dengan Mongodb (Kerjakan di `server/services/users`)
 - [ ] Membuat action pada users: Read, Create & Delete (Update optional)
 

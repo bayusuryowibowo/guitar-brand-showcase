@@ -3,28 +3,30 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
   },
   cardScrollView: {
-    backgroundColor: "gray",
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
   cardContainer: {
+    flex: 1,
     flexDirection: "column",
-    gap: 5,
+    gap: 5
   },
   card: {
-    flexDirection: "row",
+    flexDirection: "column",
     flex: 1,
     backgroundColor: "white",
-    borderRadius: 10
+    borderRadius: 10,
+    alignItems: "center"
   },
   card_mainImage: {
-    resizeMode: "contain",
-    flex: 1
+    width: 300,
+    height: 300,
+    borderRadius: 10
   },
   card_content: {
-    flex: 2
+    flex: 1,
+    padding: 5
   },
   card_text_title: {
     flex: 1,
@@ -35,7 +37,8 @@ const styles = StyleSheet.create({
     flex: 1,
     fontWeight: "700",
     fontSize: 24,
-    color: "#d71920"
+    color: "#d71920",
+    alignSelf: "flex-end"
   }
   
 });
