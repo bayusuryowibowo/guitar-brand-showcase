@@ -4,7 +4,7 @@ const Controller = require("../controllers");
 const router = express.Router();
 
 router.post("/users", Controller.register)
-router.get("/users")
+router.get("/users", Controller.readUsers)
 router.get("/users/:id")
 router.delete("/users/:id")
 

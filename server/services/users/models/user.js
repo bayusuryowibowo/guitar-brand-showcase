@@ -28,4 +28,22 @@ module.exports = class User {
       return error;
     }
   }
+
+  static async findAll() {
+    try {
+      const db = await getDb();
+      const users = await db.collection("Users");
+      const options = {
+        projection: { password: 0 },
+      };
+      const result = await users.find({}, options).toArray();
+      if (result.length === 0) {
+        console.log("No documents found!");
+        throw { name: "NotFound" };
+      }
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
 };

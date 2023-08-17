@@ -12,6 +12,15 @@ class Controller {
       next(error);
     }
   }
+
+  static async readUsers(req, res, next) {
+    try {
+      const result = await User.findAll();
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = Controller;
