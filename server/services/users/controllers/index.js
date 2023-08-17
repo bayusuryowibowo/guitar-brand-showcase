@@ -31,6 +31,16 @@ class Controller {
       next(error);
     }
   }
+
+  static async deleteUserById(req, res, next) {
+    try {
+      const { id } = req.params;
+      await User.destroy(id);
+      res.status(200).json({ message: `User with _id: ${id} deleted` });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = Controller;

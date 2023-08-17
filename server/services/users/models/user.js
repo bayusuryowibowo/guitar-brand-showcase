@@ -5,10 +5,6 @@ const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(10);
 
 module.exports = class User {
-  verifyPassword(plainPassword) {
-    return bcrypt.compareSync(plainPassword, this.password);
-  }
-
   static async create(value) {
     try {
       const hashedPassword = bcrypt.hashSync(value.password, salt);
@@ -62,6 +58,24 @@ module.exports = class User {
         throw { name: "NotFound" };
       }
       return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async destroy(id) {
+    try {
+      const db = await getDb();
+      const users = await db.collection("Users");
+      const query = { _id: new ObjectId(id) };
+      const result = await users.deleteOne(query);
+      if (result.deletedCount === 1) {
+        console.log("Successfully deleted one document.");
+      } else {
+        console.log("No documents matched the query. Deleted 0 documents.");
+        throw { name: "NotFound" };
+      }
+      return;
     } catch (error) {
       throw error;
     }
