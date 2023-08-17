@@ -1,4 +1,5 @@
 "use strict";
+const { ObjectId } = require("mongodb");
 const { getDb } = require("../config/mongodb-connection");
 const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(10);
@@ -43,7 +44,26 @@ module.exports = class User {
       }
       return result;
     } catch (error) {
-      return error;
+      throw error;
+    }
+  }
+
+  static async findByPk(id) {
+    try {
+      const db = await getDb();
+      const users = await db.collection("Users");
+      const query = { _id: new ObjectId(id) };
+      const options = {
+        projection: { password: 0 },
+      };
+      const result = await users.findOne(query, options);
+      if (!result) {
+        console.log("No documents found!");
+        throw { name: "NotFound" };
+      }
+      return result;
+    } catch (error) {
+      throw error;
     }
   }
 };
