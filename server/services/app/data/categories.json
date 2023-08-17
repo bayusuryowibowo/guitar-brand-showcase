@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Electric Guitars"
+  },
+  {
+    "id": 2,
+    "name": "Acoustic Guitars"
+  },
+  {
+    "id": 3,
+    "name": "Bass Guitars"
+  }
+]
