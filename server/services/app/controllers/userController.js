@@ -4,14 +4,7 @@ class userController {
   static async readProducts(req, res, next) {
     try {
       const products = await Product.findAll({
-        include: [
-          {
-            model: User,
-            attributes: { exclude: ["password"] },
-          },
-          Category,
-          Image,
-        ],
+        include: [Category, Image],
         order: [["id", "ASC"]],
       });
       res.status(200).json(products);

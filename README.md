@@ -53,7 +53,7 @@ Target:
 - [x] Membuat Orchestrator-express yang bisa komunikasi ke service user dan app
 - [x] Memahami cache dalam database
 - [x] Install dataabase Redis dan menggunakan ioRedis sebagai cache
-- [ ] Menjaga relasi User dengan product pada microservice
+- [x] Menjaga relasi User dengan product pada microservice
 
 **Report:**
 
@@ -63,11 +63,11 @@ Target:
 
 Target:
 
-- [ ] Memahami GraphQL dan tahu perbedaan dengan RESTful API
-- [ ] Membuat Orchestrator dengan menggunakan GraphQL
-- [ ] Memahami Typedefs, Resolvers
+- [x] Memahami GraphQL dan tahu perbedaan dengan RESTful API
+- [x] Membuat Orchestrator dengan menggunakan GraphQL
+- [x] Memahami Typedefs, Resolvers
 - [ ] Mampu membuat Query dan Mutation
-- [ ] Menggunakan redis pada graphql untuk kebutuhan cache server
+- [x] Menggunakan redis pada graphql untuk kebutuhan cache server
 - [ ] Memahami Apollo-Client & Implementasi pada mobile apps
 - [ ] Memahami cache pada Apollo-Client
 

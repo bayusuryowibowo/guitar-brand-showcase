@@ -2,14 +2,13 @@ const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const redis = require("./config/ioredis");
 const { default: axios } = require("axios");
-const { APP_API, APP_PRODUCT, APP_PRODUCTS } = require("../constants/basePath");
+const { APP_API, APP_PRODUCT, APP_PRODUCTS, USERS_API } = require("./constants/basePath");
 
 const typeDefs = `#graphql
   type User {
-    id: ID
+    _id: String
     username: String
     email: String
-    password: String
     role: String
     phoneNumber: String
     address: String
@@ -52,6 +51,11 @@ const typeDefs = `#graphql
     products: [Product]
     product(id: ID): Product
   }
+
+  # type Mutation {
+  #   addUser(input);
+
+  # }
 `;
 
 const resolvers = {
@@ -76,9 +80,11 @@ const resolvers = {
         const { id } = args;
         const productCache = await redis.get(APP_PRODUCT);
         if (!productCache) {
-          const { data } = await axios.get(`${APP_API}/pub/products/${id}`);
-          await redis.set(APP_PRODUCT, JSON.stringify(data));
-          return data;
+          const { data: product } = await axios.get(`${APP_API}/pub/products/${id}`);
+          const { data: user } = await axios.get(`${USERS_API}/users/${product.UserMongoId}`);
+          product.User = user;
+          await redis.set(APP_PRODUCT, JSON.stringify(product));
+          return product;
         } else {
           const data = JSON.parse(productCache);
           return data;
@@ -88,6 +94,9 @@ const resolvers = {
       }
     },
   },
+  // Mutation: {
+
+  // }
 };
 
 const server = new ApolloServer({

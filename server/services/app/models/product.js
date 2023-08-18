@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Product.belongsTo(models.User, { foreignKey: "authorId" });
+      // Product.belongsTo(models.User, { foreignKey: "authorId" });
       Product.belongsTo(models.Category, { foreignKey: "categoryId" });
       Product.hasMany(models.Image, { foreignKey: "productId" });
     }
@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Price is required",
           },
           min: {
-            args: 1.00,
+            args: 1.0,
             msg: "Price minimum is 1.00",
           },
         },
@@ -80,15 +80,16 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      authorId: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: "Users",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-      },
+      // authorId: {
+      //   type: DataTypes.INTEGER,
+      //   references: {
+      //     model: "Users",
+      //     key: "id",
+      //   },
+      //   onUpdate: "CASCADE",
+      //   onDelete: "CASCADE",
+      // },
+      UserMongoId: DataTypes.STRING,
     },
     {
       sequelize,
