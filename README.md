@@ -68,8 +68,8 @@ Target:
 - [x] Memahami Typedefs, Resolvers
 - [x] Mampu membuat Query dan Mutation
 - [x] Menggunakan redis pada graphql untuk kebutuhan cache server
-- [ ] Memahami Apollo-Client & Implementasi pada mobile apps
-- [ ] Memahami cache pada Apollo-Client
+- [x] Memahami Apollo-Client & Implementasi pada mobile apps
+- [x] Memahami cache pada Apollo-Client
 
 **Report:**
 

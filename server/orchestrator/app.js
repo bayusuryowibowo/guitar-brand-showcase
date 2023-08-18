@@ -8,6 +8,8 @@ const {
   APP_PRODUCTS,
   USERS_API,
   USERS_USERS,
+  APP_CATEGORIES,
+  APP_CATEGORY,
 } = require("./constants/basePath");
 
 const typeDefs = `#graphql
@@ -60,6 +62,8 @@ const typeDefs = `#graphql
   type Query {
     products: [Product]
     product(id: ID): Product
+    categories: [Category]
+    category(id: ID): Category
   }
 
   type Mutation {
@@ -93,7 +97,8 @@ const resolvers = {
     product: async (_, args) => {
       try {
         const { id } = args;
-        const productCache = await redis.get(APP_PRODUCT);
+        const productCacheKey = `${APP_PRODUCT}:${id}`
+        const productCache = await redis.get(productCacheKey);
         if (!productCache) {
           const { data: product } = await axios.get(
             `${APP_API}/pub/products/${id}`
@@ -102,7 +107,7 @@ const resolvers = {
             `${USERS_API}/users/${product.UserMongoId}`
           );
           product.User = user;
-          await redis.set(APP_PRODUCT, JSON.stringify(product));
+          await redis.set(productCacheKey, JSON.stringify(product));
           return product;
         } else {
           const data = JSON.parse(productCache);
@@ -112,6 +117,38 @@ const resolvers = {
         throw error;
       }
     },
+    categories: async () => {
+      try {
+        const categoriesCache = await redis.get(APP_CATEGORIES);
+        if (!categoriesCache) {
+          const { data: categories } = await axios.get(`${APP_API}/pub/categories`);
+          await redis.set(APP_CATEGORIES, JSON.stringify(categories));
+          return categories;
+        } else {
+          const categories = JSON.parse(categoriesCache);
+          return categories;
+        }
+      } catch (error) {
+        throw error;
+      }
+    },
+    category: async (_, args) => {
+      try {
+        const { id } = args;
+        const categoryCacheKey = `${APP_CATEGORY}:${id}`
+        const categoryCache = await redis.get(categoryCacheKey);
+        if (!categoryCache) {
+          const { data: category } = await axios.get(`${APP_API}/pub/categories/${id}`);
+          await redis.set(categoryCacheKey, JSON.stringify(category));
+          return category;
+        } else {
+          const category = JSON.parse(categoryCache);
+          return category;
+        }
+      } catch (error) {
+        throw error;
+      }
+    }
   },
   Mutation: {
     addUser: async (_, args) => {

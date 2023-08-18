@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "#d71920",
     alignSelf: "flex-end"
+  },
+  loading: {
+    justifyContent: "center"
   }
   
 });
