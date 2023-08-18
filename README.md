@@ -66,7 +66,7 @@ Target:
 - [x] Memahami GraphQL dan tahu perbedaan dengan RESTful API
 - [x] Membuat Orchestrator dengan menggunakan GraphQL
 - [x] Memahami Typedefs, Resolvers
-- [ ] Mampu membuat Query dan Mutation
+- [x] Mampu membuat Query dan Mutation
 - [x] Menggunakan redis pada graphql untuk kebutuhan cache server
 - [ ] Memahami Apollo-Client & Implementasi pada mobile apps
 - [ ] Memahami cache pada Apollo-Client

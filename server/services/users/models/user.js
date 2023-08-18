@@ -17,6 +17,8 @@ module.exports = class User {
         role: "Admin",
         phoneNumber: value.phoneNumber,
         address: value.address,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
       const result = await users.insertOne(doc);
       console.log(`A document was inserted with the _id: ${result.insertedId}`);
@@ -29,6 +31,7 @@ module.exports = class User {
   static async findAll() {
     try {
       const db = await getDb();
+      console.log(db);
       const users = await db.collection("Users");
       const options = {
         projection: { password: 0 },

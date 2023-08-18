@@ -2,7 +2,13 @@ const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const redis = require("./config/ioredis");
 const { default: axios } = require("axios");
-const { APP_API, APP_PRODUCT, APP_PRODUCTS, USERS_API } = require("./constants/basePath");
+const {
+  APP_API,
+  APP_PRODUCT,
+  APP_PRODUCTS,
+  USERS_API,
+  USERS_USERS,
+} = require("./constants/basePath");
 
 const typeDefs = `#graphql
   type User {
@@ -47,15 +53,24 @@ const typeDefs = `#graphql
     updatedAt: String
   }
 
+  type MessageResponse {
+    message: String
+  }
+
   type Query {
     products: [Product]
     product(id: ID): Product
   }
 
-  # type Mutation {
-  #   addUser(input);
-
-  # }
+  type Mutation {
+    addUser(
+      email: String,
+      username: String,
+      password: String,
+      phoneNumber: String,
+      address: String
+      ): MessageResponse
+  }
 `;
 
 const resolvers = {
@@ -80,8 +95,12 @@ const resolvers = {
         const { id } = args;
         const productCache = await redis.get(APP_PRODUCT);
         if (!productCache) {
-          const { data: product } = await axios.get(`${APP_API}/pub/products/${id}`);
-          const { data: user } = await axios.get(`${USERS_API}/users/${product.UserMongoId}`);
+          const { data: product } = await axios.get(
+            `${APP_API}/pub/products/${id}`
+          );
+          const { data: user } = await axios.get(
+            `${USERS_API}/users/${product.UserMongoId}`
+          );
           product.User = user;
           await redis.set(APP_PRODUCT, JSON.stringify(product));
           return product;
@@ -94,9 +113,29 @@ const resolvers = {
       }
     },
   },
-  // Mutation: {
-
-  // }
+  Mutation: {
+    addUser: async (_, args) => {
+      try {
+        const { email, username, password, phoneNumber, address } = args;
+        const { data: message } = await axios.post(
+          `${USERS_API}/users`,
+          {
+            email,
+            username,
+            password,
+            phoneNumber,
+            address,
+          },
+          {}
+        );
+        const { data: users } = await axios.get(`${USERS_API}/users`);
+        await redis.set(USERS_USERS, JSON.stringify(users));
+        return message;
+      } catch (error) {
+        throw error;
+      }
+    },
+  },
 };
 
 const server = new ApolloServer({
