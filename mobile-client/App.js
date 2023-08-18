@@ -3,11 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ProductListScreen from "./screens/ProductListScreen";
 import DetailProductScreen from "./screens/DetailProductScreen";
 import OnboardingScreen from "./screens/OnboardingScreen";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const Stack = createNativeStackNavigator();
 const client = new ApolloClient({
@@ -35,7 +31,11 @@ export default function App() {
               headerBackButtonMenuEnabled: false,
             }}
           />
-          <Stack.Screen name="DetailProduct" component={DetailProductScreen} />
+          <Stack.Screen
+            name="DetailProduct"
+            component={DetailProductScreen}
+            options={{ headerTransparent: true }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>

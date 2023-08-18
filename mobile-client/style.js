@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     borderRadius: 10,
-    alignItems: "center"
+    alignItems: "center",
   },
   card_mainImage: {
     width: 300,
@@ -42,7 +42,28 @@ const styles = StyleSheet.create({
   },
   loading: {
     justifyContent: "center"
-  }
+  },
+  imageRow: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 50,
+    marginHorizontal: 10,
+    gap: 5
+  },
+  imageColumn: {
+    flex: 1,
+    flexDirection: "column",
+    gap: 4,
+    alignItems: "center"
+  },
+  smallImage: {
+    borderColor: "transparent",
+    borderWidth: 2,
+  },
+  activeSmallImage: {
+    borderColor: "#2e68a9",
+  },
   
 });
 

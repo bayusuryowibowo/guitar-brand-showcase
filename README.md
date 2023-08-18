@@ -25,7 +25,7 @@ Target:
 - [x] Mengetahui bahwa redux & redux-thunk bisa diimplementasi di react-native
 - [x] Memahami `react-native-navigation`
 - [x] Memahami Stack Navigation & Tab Navigation
-- [ ] Membuat min 2 Screen (Home, Detail)
+- [x] Membuat min 2 Screen (Home, Detail)
 
 **Report:**
 
