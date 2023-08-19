@@ -11,6 +11,9 @@ const {
   APP_CATEGORIES,
   APP_CATEGORY,
 } = require("./constants/basePath");
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 const typeDefs = `#graphql
   type User {
@@ -64,6 +67,7 @@ const typeDefs = `#graphql
     product(id: ID): Product
     categories: [Category]
     category(id: ID): Category
+    users: [User]
   }
 
   type Mutation {
@@ -144,6 +148,21 @@ const resolvers = {
         } else {
           const category = JSON.parse(categoryCache);
           return category;
+        }
+      } catch (error) {
+        throw error;
+      }
+    },
+    users: async () => {
+      try {
+        const usersCache = await redis.get(USERS_USERS);
+        if (!usersCache) {
+          const { data: users } = await axios.get(`${USERS_API}/users`);
+          await redis.set(USERS_USERS, JSON.stringify(users));
+          return users;
+        } else {
+          const users = JSON.parse(usersCache);
+          return users;
         }
       } catch (error) {
         throw error;
