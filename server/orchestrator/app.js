@@ -10,6 +10,7 @@ const {
   USERS_USERS,
   APP_CATEGORIES,
   APP_CATEGORY,
+  USERS_USER,
 } = require("./constants/basePath");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -68,6 +69,7 @@ const typeDefs = `#graphql
     categories: [Category]
     category(id: ID): Category
     users: [User]
+    user(_id: ID): User
   }
 
   type Mutation {
@@ -78,6 +80,7 @@ const typeDefs = `#graphql
       phoneNumber: String,
       address: String
       ): MessageResponse
+    deleteUser(_id: ID): MessageResponse
   }
 `;
 
@@ -167,6 +170,23 @@ const resolvers = {
       } catch (error) {
         throw error;
       }
+    },
+    user: async (_, args) => {
+      try {
+        const { _id } = args;
+        const userCacheKey = `${USERS_USER}:${_id}`
+        const userCache = await redis.get(userCacheKey);
+        if (!userCache) {
+          const { data: user } = await axios.get(`${USERS_API}/users/${_id}`);
+          await redis.set(userCacheKey, JSON.stringify(user));
+          return user;
+        } else {
+          const user = JSON.parse(userCache);
+          return user;
+        }
+      } catch (error) {
+        throw error;
+      }
     }
   },
   Mutation: {
@@ -191,6 +211,19 @@ const resolvers = {
         throw error;
       }
     },
+    deleteUser: async (_, args) => {
+      try {
+        const { _id } = args;
+        const userCacheKey = `${USERS_USER}:${_id}`
+        const { data: message } = await axios.delete(`${USERS_API}/users/${_id}`);
+        const { data: users } = await axios.get(`${USERS_API}/users`);
+        await redis.set(USERS_USERS, JSON.stringify(users));
+        await redis.del(userCacheKey);
+        return message;
+      } catch (error) {
+        throw error;
+      }
+    }
   },
 };
 
