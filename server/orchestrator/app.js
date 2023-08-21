@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const redis = require("./config/ioredis");
@@ -12,9 +15,6 @@ const {
   APP_CATEGORY,
   USERS_USER,
 } = require("./constants/basePath");
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
 
 const typeDefs = `#graphql
   type User {
@@ -74,13 +74,21 @@ const typeDefs = `#graphql
 
   type Mutation {
     addUser(
-      email: String,
-      username: String,
-      password: String,
-      phoneNumber: String,
+      email: String
+      username: String
+      password: String
+      phoneNumber: String
       address: String
       ): MessageResponse
     deleteUser(_id: ID): MessageResponse
+    addProduct(
+      name: String
+      description: String
+      price: String
+      mainImg: String
+      categoryId: Int
+      images: String
+      ): MessageResponse
   }
 `;
 
@@ -104,7 +112,7 @@ const resolvers = {
     product: async (_, args) => {
       try {
         const { id } = args;
-        const productCacheKey = `${APP_PRODUCT}:${id}`
+        const productCacheKey = `${APP_PRODUCT}:${id}`;
         const productCache = await redis.get(productCacheKey);
         if (!productCache) {
           const { data: product } = await axios.get(
@@ -128,7 +136,9 @@ const resolvers = {
       try {
         const categoriesCache = await redis.get(APP_CATEGORIES);
         if (!categoriesCache) {
-          const { data: categories } = await axios.get(`${APP_API}/pub/categories`);
+          const { data: categories } = await axios.get(
+            `${APP_API}/pub/categories`
+          );
           await redis.set(APP_CATEGORIES, JSON.stringify(categories));
           return categories;
         } else {
@@ -142,10 +152,12 @@ const resolvers = {
     category: async (_, args) => {
       try {
         const { id } = args;
-        const categoryCacheKey = `${APP_CATEGORY}:${id}`
+        const categoryCacheKey = `${APP_CATEGORY}:${id}`;
         const categoryCache = await redis.get(categoryCacheKey);
         if (!categoryCache) {
-          const { data: category } = await axios.get(`${APP_API}/pub/categories/${id}`);
+          const { data: category } = await axios.get(
+            `${APP_API}/pub/categories/${id}`
+          );
           await redis.set(categoryCacheKey, JSON.stringify(category));
           return category;
         } else {
@@ -174,7 +186,7 @@ const resolvers = {
     user: async (_, args) => {
       try {
         const { _id } = args;
-        const userCacheKey = `${USERS_USER}:${_id}`
+        const userCacheKey = `${USERS_USER}:${_id}`;
         const userCache = await redis.get(userCacheKey);
         if (!userCache) {
           const { data: user } = await axios.get(`${USERS_API}/users/${_id}`);
@@ -187,7 +199,7 @@ const resolvers = {
       } catch (error) {
         throw error;
       }
-    }
+    },
   },
   Mutation: {
     addUser: async (_, args) => {
@@ -214,8 +226,10 @@ const resolvers = {
     deleteUser: async (_, args) => {
       try {
         const { _id } = args;
-        const userCacheKey = `${USERS_USER}:${_id}`
-        const { data: message } = await axios.delete(`${USERS_API}/users/${_id}`);
+        const userCacheKey = `${USERS_USER}:${_id}`;
+        const { data: message } = await axios.delete(
+          `${USERS_API}/users/${_id}`
+        );
         const { data: users } = await axios.get(`${USERS_API}/users`);
         await redis.set(USERS_USERS, JSON.stringify(users));
         await redis.del(userCacheKey);
@@ -223,13 +237,36 @@ const resolvers = {
       } catch (error) {
         throw error;
       }
-    }
+    },
+    addProduct: async (_, args) => {
+      try {
+        const { name, description, price, mainImg, categoryId, images } = args;
+        const { data: message } = await axios.post(
+          `${APP_API}/products`,
+          {
+            name,
+            description,
+            price,
+            mainImg,
+            categoryId,
+            images: imagesInput,
+          },
+          {}
+        );
+        const { data: products } = await axios.get(`${APP_API}/products`, {});
+        await redis.set(APP_PRODUCTS, JSON.stringify(products));
+        return message;
+      } catch (error) {
+        throw error;
+      }
+    },
   },
 };
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  introspection: true,
 });
 
 startStandaloneServer(server, {

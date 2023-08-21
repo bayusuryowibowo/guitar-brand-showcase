@@ -10,7 +10,7 @@ const pub = require("./pub");
 router
   .use("/pub", pub)
   .use(adminAuth)
-  .use(auth)
+  // .use(auth)
   .use("/products", products)
   .use("/categories", categories);
 

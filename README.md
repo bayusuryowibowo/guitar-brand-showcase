@@ -79,7 +79,7 @@ Target:
 
 Target:
 
-- [ ] Memahami Docker
+- [x] Memahami Docker
 - [ ] Implementasi Docker pada aplikasi server
 
 **Report:**
