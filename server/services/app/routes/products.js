@@ -7,7 +7,9 @@ router
   .post("", adminController.addProduct)
   .get("", adminController.readProducts)
   .get("/:id", adminController.readProductById)
-  .put("/:id", productAuthz, adminController.editProduct)
-  .delete("/:id", productAuthz, adminController.deleteProduct);
+  // .put("/:id", productAuthz, adminController.editProduct)
+  // .delete("/:id", productAuthz, adminController.deleteProduct);
+  .put("/:id", adminController.editProduct)
+  .delete("/:id", adminController.deleteProduct);
 
 module.exports = router;

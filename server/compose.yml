@@ -1,0 +1,23 @@
+version: "3.6"
+
+services:
+    orchestrator:
+        build: ./orchestrator
+        ports:
+            - "5000:4000"
+        environment:
+            PORT: ${PORT}
+            REDISLABS_PASSWORD: ${REDISLABS_PASSWORD}
+    users-service:
+        build: ./services/users
+        ports:
+            - "5001:4001"
+        environment:
+            MONGODB_PASSWORD: ${MONGODB_PASSWORD}
+    app-service:
+        build: ./services/app
+        ports:
+            - "5002:4002"
+        environment:
+            JWT_SECRET: ${JWT_SECRET}
+            DATABASE_URL: ${DATABASE_URL}

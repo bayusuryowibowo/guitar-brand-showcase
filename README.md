@@ -25,7 +25,7 @@ Target:
 - [x] Mengetahui bahwa redux & redux-thunk bisa diimplementasi di react-native
 - [x] Memahami `react-native-navigation`
 - [x] Memahami Stack Navigation & Tab Navigation
-- [ ] Membuat min 2 Screen (Home, Detail)
+- [x] Membuat min 2 Screen (Home, Detail)
 
 **Report:**
 
@@ -53,7 +53,7 @@ Target:
 - [x] Membuat Orchestrator-express yang bisa komunikasi ke service user dan app
 - [x] Memahami cache dalam database
 - [x] Install dataabase Redis dan menggunakan ioRedis sebagai cache
-- [ ] Menjaga relasi User dengan product pada microservice
+- [x] Menjaga relasi User dengan product pada microservice
 
 **Report:**
 
@@ -63,13 +63,13 @@ Target:
 
 Target:
 
-- [ ] Memahami GraphQL dan tahu perbedaan dengan RESTful API
-- [ ] Membuat Orchestrator dengan menggunakan GraphQL
-- [ ] Memahami Typedefs, Resolvers
-- [ ] Mampu membuat Query dan Mutation
-- [ ] Menggunakan redis pada graphql untuk kebutuhan cache server
-- [ ] Memahami Apollo-Client & Implementasi pada mobile apps
-- [ ] Memahami cache pada Apollo-Client
+- [x] Memahami GraphQL dan tahu perbedaan dengan RESTful API
+- [x] Membuat Orchestrator dengan menggunakan GraphQL
+- [x] Memahami Typedefs, Resolvers
+- [x] Mampu membuat Query dan Mutation
+- [x] Menggunakan redis pada graphql untuk kebutuhan cache server
+- [x] Memahami Apollo-Client & Implementasi pada mobile apps
+- [x] Memahami cache pada Apollo-Client
 
 **Report:**
 
@@ -79,7 +79,7 @@ Target:
 
 Target:
 
-- [ ] Memahami Docker
+- [x] Memahami Docker
 - [ ] Implementasi Docker pada aplikasi server
 
 **Report:**

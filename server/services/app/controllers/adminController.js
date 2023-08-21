@@ -56,7 +56,7 @@ class adminController {
           price,
           mainImg,
           categoryId,
-          authorId: req.user.id,
+          UserMongoId: req.user.id,
         },
         { transaction: t }
       );
@@ -75,14 +75,7 @@ class adminController {
   static async readProducts(req, res, next) {
     try {
       const products = await Product.findAll({
-        include: [
-          {
-            model: User,
-            attributes: { exclude: ["password"] },
-          },
-          Category,
-          Image,
-        ],
+        include: [Category, Image],
         order: [["id", "ASC"]],
       });
       res.status(200).json(products);
@@ -117,7 +110,7 @@ class adminController {
           price,
           mainImg,
           categoryId,
-          authorId: req.user.id,
+          UserMongoId: req.user.id,
         },
         {
           transaction: t,
