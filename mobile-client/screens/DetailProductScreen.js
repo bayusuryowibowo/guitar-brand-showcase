@@ -1,20 +1,15 @@
 import { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
-  Dimensions,
   Image,
-  ImageBackground,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import BASE_URL from "../constants/baseUrl";
 import styles from "../style";
-import Images from "../constants/Images";
 import { gql, useQuery } from "@apollo/client";
+import Loading from "../components/Loading";
 
-const { height, width } = Dimensions.get("screen");
 const GET_DETAIL_PRODUCT = gql`
   query getDetailProduct($productId: ID) {
     product(id: $productId) {
@@ -39,7 +34,6 @@ const GET_DETAIL_PRODUCT = gql`
 
 export default function DetailProductScreen({ navigation, route }) {
   const { id } = route.params;
-  // const [product, setProduct] = useState({});
 
   const { loading, error, data } = useQuery(GET_DETAIL_PRODUCT, {
     variables: {
@@ -51,25 +45,6 @@ export default function DetailProductScreen({ navigation, route }) {
   const handleImageClick = (index) => {
     setSelectedImageIndex(index);
   };
-
-  // data.product.createdAt =
-
-  // const fetchDetailProduct = async (id) => {
-  //   try {
-  //     const response = await fetch(BASE_URL + `/products/${id}`, {
-  //       method: "GET",
-  //     });
-  //     if (!response.ok) throw response;
-  //     const data = await response.json();
-  //     setProduct(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchDetailProduct(id);
-  // }, [id]);
 
   useEffect(() => {
     if (data && data.product) {
@@ -83,18 +58,12 @@ export default function DetailProductScreen({ navigation, route }) {
 
   if (loading)
     return (
-      <View style={[styles.container, styles.loading]}>
-        <ActivityIndicator size="large" />
-      </View>
+      <Loading />
     );
   if (error) return <Text>Error : {error.message}</Text>;
 
   return (
     <View style={styles.container}>
-      {/* <ImageBackground
-        source={Images.Onboarding}
-        style={{ height, width, position: "absolute" }}
-      /> */}
       <View style={styles.imageRow}>
         <View style={{ marginTop: 35, flex: 5 }}>
           <Image

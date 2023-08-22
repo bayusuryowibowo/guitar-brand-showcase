@@ -7,7 +7,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const Stack = createNativeStackNavigator();
 const client = new ApolloClient({
-  uri: "https://3b23-202-46-68-112.ngrok-free.app",
+  uri: "https://sweetwater-ver2.bayusuryowibowo.xyz",
   cache: new InMemoryCache(),
 });
 

@@ -1,26 +1,24 @@
 import {
-  Dimensions,
-  ImageBackground,
+  Image,
   Pressable,
-  StatusBar,
   Text,
   View,
 } from "react-native";
-import Images from "../constants/Images";
+// import Images from "../constants/Images";
 
-const { height, width } = Dimensions.get("screen");
+// const { height, width } = Dimensions.get("screen");
 
 export default function OnboardingScreen({ navigation }) {
   const getStartClick = () => {
-    navigation.replace("ProductList")
-  } 
+    navigation.replace("ProductList");
+  };
 
   return (
     <View style={{ flex: 1, justifyContent: "center" }}>
-      <ImageBackground
+      {/* <ImageBackground
         source={Images.Onboarding}
         style={{ height, width, position: "absolute" }}
-      />
+      /> */}
       <View
         style={{
           alignItems: "center",
@@ -28,10 +26,17 @@ export default function OnboardingScreen({ navigation }) {
           justifyContent: "space-around",
         }}
       >
-        <Text style={{ backgroundColor: "white" }}>SWEETWATER (Brand Logo)</Text>
-        <Text style={{ backgroundColor: "white" }}>TEXT PANJANG</Text>
-        <Pressable onPress={getStartClick} style={{ backgroundColor: "white", padding: 10, borderRadius: 5 }}>
-          <Text>GET STARTED</Text>
+        <Image
+          style={{ width: 300, height: 100, resizeMode: "contain" }}
+          source={{
+            uri: "https://media.sweetwater.com/m/header/logo/sweetwater-logo.png?width=570&quality=90",
+          }}
+        />
+        <Pressable
+          onPress={getStartClick}
+          style={{ backgroundColor: "#0d6efd", padding: 10, borderRadius: 15, paddingHorizontal: 20 }}
+        >
+          <Text style={{ fontSize: 25, color: "white" }}>GET STARTED</Text>
         </Pressable>
       </View>
     </View>
